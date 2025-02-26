@@ -1,0 +1,237 @@
+.page {
+    visibility: hidden;
+    position: absolute;
+    margin-top: .5em;
+    padding-top: .5em;
+
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.page.active {
+    visibility: visible;
+    position: relative;
+}
+
+.overlay {
+    visibility: hidden;
+    position: absolute;
+    overflow: hidden;
+}
+
+.overlay.active {
+    visibility: inherit;
+    position: relative;
+}
+
+.header {
+    display: inline-flex;
+    gap: 1em;
+    height: 1.5em;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.underline {
+    width: 19em;
+    margin: 0;
+    height: 2px;
+    background: hsl(209, 7%, 78%);
+}
+
+.underline.game {
+    margin-left: 2em;
+    width: 15em;
+    background: skyblue;
+}
+
+.underline.stats {
+    margin-top: 0.5em;
+    margin-left: 2em;
+    width: 15em;
+    height: 1px;
+    background: black;
+}
+
+.week-bar{
+    position: absolute;
+    width: var(--width, 14em);
+    background: #E6c655;
+    height: 1.95em;
+    margin-left: 3em;
+    z-index: -1;
+}
+
+.logo-horizontal-icon {
+    height: 1.4em;
+    padding-left: 1em;
+    padding-right: 4em;
+}
+
+.logo-vertical-icon {
+    padding-left: 0.8em;
+    height: 5em;
+}
+
+.icon {
+    height: 1.25em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.icon.hidden {
+    visibility: hidden;
+    user-select: none;
+}
+
+.button {
+    height: 2.5em;
+    background: black;
+    border: none;
+    border-radius: 2em;
+    font-size: 0.8em;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+}
+
+.button.play {
+    width: 9em;
+    margin-top: 1.60em;
+}
+
+.button.stats{
+    background: none;
+    border: solid black .1em;
+    color: black;
+    width: 8em;
+    margin: 0.5em;
+    border-radius: 0.25em;
+    font-size: 0.7em;
+    padding-top: .2em;
+    padding-bottom: .2em;
+    height: 3em;
+}
+
+.button.stats.selected {
+    background: black;
+    border: none;
+    color: white;
+}
+
+.button.welcome {
+    width: 9em;
+}
+
+.button.share {
+    width: 9em;
+}
+
+.button.share.inactive {
+    background-color: grey;
+}
+
+.button.clear {
+    width: 6em;
+    color: black;
+    background: white;
+    border: solid black .1em;
+}
+
+.button.hint {
+    width: 6em;
+    color: black;
+    background: white;
+    border: solid black .1em;
+}
+
+button.hint.changed {
+    background-color: black;
+    color: white;
+    cursor: none;
+    pointer-events: none;
+}
+
+.button.play-again {
+    width: 9em;
+}
+
+.button.play-again.hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.button.game {
+    width: 7em;
+    margin-top: 1.60em;
+    background: none;
+    border: solid black .1em;
+    border-radius: 1.5em;
+    padding-top: .25em;
+    color: black;
+    margin-left: .3em;
+    margin-right: .3em;
+    font-size: .7em;
+}
+
+.button.game.refresh {
+    width: 5.5em;
+}
+
+.timer {
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    border-radius: .25em;
+    border: solid black;
+    width: 5em;
+    padding: 0.2em;
+}
+
+.guess {
+    border: .1em solid var(--guess-color);
+    background: var(--guess-color);
+}
+
+.changed {
+    border: none;
+    background-color: var(--change-color);
+}
+
+.statistic {
+    display: inline;
+    border-color: black;
+    width: auto;
+    height: auto;
+    grid-column: span 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.statistic.large {
+    grid-column: span 4;
+}
+
+.statistic-data {
+    font-size: 1.25em;
+    margin-bottom: -.5em;
+}
+
+.statistic-label {
+    font-size: .65em;
+}
+
+.stats-grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(4, 4em);
+    grid-template-rows: repeat(2, 4.25em);
+    gap: .5em;
+    margin-bottom: 1em;
+    margin-top: -.5em;
+}

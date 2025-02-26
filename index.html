@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/format.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/text.css">
+    <script src="scripts/game.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+</head>
+<body class="off-white">
+    <div id="game" class="page">
+        <div>
+            <div class="alert-container" data-alert-container></div>
+            <div class="header">
+                <div>
+                    <img src="resources/word-wheel-horizontal.svg" class="logo-horizontal-icon">
+                </div>
+                <div>
+                    <a onclick="showPage('info')">
+                        <img src="resources/info-icon.svg" class="icon">
+                    </a>
+                </div>
+                <div>
+                    <a onclick="showPage('stats')">
+                        <img src="resources/stats-icon.svg" class="icon">
+                    </a>
+                </div>
+            </div>
+            <div class="underline"></div>
+        </div>
+        <div class="dropdown-parent enabled button-box-game" data-rankings-dropdown data-default>
+            <div class="rankings-box-dot-grid gap" style="--amount: 1.3em">
+                <div class="rankings-dot yellow"></div>
+                <div class="rankings-dot yellow"></div>
+                <div class="rankings-dot yellow"></div>
+                <div class="rankings-dot active">19</div>
+                <div class="rankings-dot"></div>
+                <div class="rankings-dot"></div>
+                <div class="rankings-dot"></div>
+                <div class="rankings-dot"></div>
+                <div class="rankings-dot"></div>
+            </div>
+            <div class="rankings-box-text gap" style="--amount: 4em">
+                4 to Very Good
+            </div>
+            <div class="rankings-box gap" style="--amount: 4em" onclick="pressRankingsDropdown()">
+                Good
+            </div>
+        </div>
+        <div class="dropdown-parent button-box-game" data-rankings-dropdown>
+            <div class="rankings-box-down gap" style="--amount: 44em" onclick="pressRankingsDropdown()"> 
+            </div>
+        </div>
+        <div class="dropdown-parent enabled button-box-game" data-words-dropdown data-default>
+            <div class="dropdown-arrow gap" style="--amount: 11em">
+                <img src="resources/down-arrow.svg" class="icon" onclick="pressWordsDropdown()">
+            </div>
+            <div class="dropdown gap" style="--amount: 11em">
+                Purity Putt Yurt
+            </div>
+        </div>
+        <div class="dropdown-parent button-box-game" data-words-dropdown>
+            <div class="dropdown-arrow up gap" style="--amount: 11em">
+                <img src="resources/up-arrow.svg" class="icon" onclick="pressWordsDropdown()">
+            </div>
+            <div class="dropdown down gap" style="--amount: 51em">
+                You have found 6 words
+            </div>
+            <div class="dropdown-text gap" style="--amount: 52em">
+                Purity Putt Yurt
+                <br>
+                Putt Yurt Purity
+            </div>
+        </div>
+        <div class="hexagon-grid centered gap" style="--amount: 12em">
+            <div class="space"></div>
+            <div class="hexagon">
+                <div class="hex-text">T</div>
+            </div>
+            <div class="hexagon">
+                <div class="hex-text">I</div>
+            </div>
+            <div class="hexagon">
+                <div class="hex-text">R</div>
+            </div>
+            <div class="hexagon yellow">
+                <div class="hex-text">U</div>
+            </div>
+            <div class="hexagon">
+                <div class="hex-text">M</div>
+            </div>
+            <div class="space"></div>
+            <div class="hexagon">
+                <div class="hex-text">P</div>
+            </div>
+            <div class="hexagon">
+                <div class="hex-text">Y</div>
+            </div>
+        </div>
+        <div class="button-box-game gap centered" style="--amount: 5em">
+            <button class="button game">
+                Delete
+            </button>
+            <button class="button game refresh">
+                <img src="resources/Refresh.svg" class="icon">
+            </button>
+            <button class="button game">
+                Enter
+            </button>
+        </div>
+        <div class="gap" style="--amount:5em"></div>
+    </div>
+    <div id="info" class="page active">
+        <div class="text-info-title gap" style="--amount: 4em">
+            How To Play
+        </div>
+        <div class="centered">
+            <div class="text-box-info heading gap" style="--amount: 1.1em">
+                How many words can you make from 7 letters shown?
+            </div>
+        </div>
+        <div class="centered">
+            <div class="text-box-info gap" style="--amount: 0.4em">
+                - Words must contain at least 4 letters.
+                <br>- Words must include the center letter.
+                <br>- Letters can be used more than once.
+                <br>- Our words list does not include curses or words that are obscure.
+            </div>
+        </div>
+        <div class="centered">
+            <div class="text-box-info heading gap" style="--amount: 1.1em">
+                Every word earns points.
+            </div>
+        </div>
+        <div class="centered">
+            <div class="text-box-info gap" style="--amount: .4em;">
+            - 4-letter words are worth 1 point.
+            <br>- Longer words earn 1 point for each letter.
+            <br>- Panagram - words that use all 7 letters -- earn an
+            <br>additional bonus of 7 points. There is at least one Panagram per
+            <br>puzzle.
+            </div>
+        </div>
+        <div class="centered">
+            <div class="text-box-info gap" style="--amount: 1.1em">
+                New puzzles generate at midnight.
+            </div>
+        </div>
+        <div class="centered">
+            <div class="text-box-info gap" style="--amount: 1.1em">
+                Have feedback? &nbsp;<a href="mailto:customerhelp@independent?subject=Uimhir%20Puzzle%20Feedback.">Email us</a>.
+            </div>
+        </div>
+        <div class="centered gap" style="--amount: 4em">
+            <button class="button play" data-play-button onclick="showPage('game')">
+                Play
+            </button>
+        </div>
+    </div>
+    <div id="stats" class="page">
+        <div>
+            <div class="alert-container" data-stats-alert-container></div>
+            <div class = "box right">
+                <a onclick="showPage('game')">
+                    <img src="resources/x-symbol.svg" class="icon">
+                </a>
+            </div>
+            <div class = "box center">
+                <div class="gap" style="--amount: 1.5em">
+                    <img src="resources/word-wheel-vertical.svg" class="logo-vertical-icon">
+                </div>
+            </div>
+            <div class="centered gap" style="--amount: 2em">
+                <div class="text-box-stats heading gap centered" style="--amount: 0.8em">
+                    Statistics Daily
+                </div>
+            </div>
+            <div class=" centered box gap" style="--amount: 0.6em">
+                <div class="text-box-stats gap centered" style="--amount: 1.1em">
+                    <button class="button stats selected" data-stats-button data-this onclick="pressStatsButton('this')">
+                        This<br> Week
+                    </button>
+                    <button class="button stats" data-stats-button data-last onclick="pressStatsButton('last')">
+                        Last<br> Week
+                    </button>
+                    <button class="button stats" data-stats-button data-all onclick="pressStatsButton('all')">
+                        All<br> Time
+                    </button>
+                </div>
+            </div>
+            <div class="centered underline stats">
+            </div>
+            <div class="overlay active" data-stats-overlay data-overlay-this>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            M&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            W&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div class="centered">
+                    <button class="button share center gap" style="--amount: 2em" data-play-button onclick="showPage('game')">
+                        Share
+                    </button>
+                </div>
+            </div>
+            <div class="overlay" data-stats-overlay data-overlay-last>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 6em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            M&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>Good</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 14em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            W&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>Genius</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 0em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>--</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div>
+                    <div class="week-bar" style="--width: 4em"></div>
+                    <div class="stats-column centered">
+                        <div class="box-stats-week heading gap" style="--amount: 0.9em">
+                            S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="bold" data-stats-last>Beginner</div>
+                        </div>
+                    </div>
+                    <div class="centered underline stats"></div>
+                </div>
+                <div class="centered">
+                    <button class="button share center gap" style="--amount: 2em" data-play-button onclick="showPage('game')">
+                        Share
+                    </button>
+                </div>
+            </div>
+            <div class="overlay centered" data-stats-overlay data-overlay-all>
+                <div class="stats-column">
+                    <div class="box left stats heading gap" style="--amount: 0.8em">
+                        Words found: &nbsp;<div class="bold" data-stats-all>22</div>
+                    </div>
+                    <div class="box left stats heading gap" style="--amount: 0.8em">
+                        Games played: &nbsp;<div class="bold" data-stats-all>6</div>
+                    </div>
+                    <div class="box left stats heading gap" style="--amount: 0.8em">
+                        Average number of guessed words: &nbsp;<div class="bold" data-stats-all>3.7</div>
+                    </div>
+                    <div class="box left stats heading gap" style="--amount: 0.8em">
+                        Panagrams found: &nbsp;<div class="bold" data-stats-all>0</div>
+                    </div>
+                    <div class="box left stats heading gap" style="--amount: 0.8em">
+                        Most frequent rating: &nbsp;<div class="bold" data-stats-all>Beginner</div>
+                    </div>
+                    <div class="centered">
+                        <button class="button share center gap" style="--amount: 9.2em" data-play-button onclick="showPage('game')">
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="welcome" class="page">
+        <div class="centered gap" style="--amount: 2em">
+            <img src="resources/Conundrum vertical.svg" class="welcome-header" alt="">
+        </div>
+        <div class="text-welcome-title gap centered" style="--amount: 3em" data-welcome-header>
+            None
+        </div>
+        <div class="text-box-welcome long gap centered" style="--amount: 0.5em" data-welcome-message>
+            None
+        </div>
+        <div class="centered gap" style="--amount: 14em">
+            <button class="button welcome" onclick="showPage('game')" data-welcome-button>
+                None
+            </button>
+        </div>
+        <div class="text-welcome-date gap centered" style="--amount: 1.25em" data-welcome-date>
+            None
+        </div>
+        <div class="text-welcome-puzzle centered" data-welcome-number style="visibility: hidden;">
+            None
+        </div>
+    </div>
+</body>
+</html>
