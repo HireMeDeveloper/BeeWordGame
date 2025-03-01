@@ -64,26 +64,17 @@ function isValidLetter(key) {
 }
 
 function shuffleKey(str) {
-    // If the string is empty or has only one character, return it as is
     if (str.length <= 1) return str;
-
-    // Get the first letter
     let firstLetter = str[0];
 
-    // Get the rest of the string excluding the first letter
     let restOfString = str.slice(1);
 
-    // Convert the rest of the string into an array and shuffle it
     let shuffledArray = restOfString.split('');
     for (let i = shuffledArray.length - 1; i > 0; i--) {
-        // Pick a random index
         const j = Math.floor(Math.random() * (i + 1));
-
-        // Swap the elements
         [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
     }
 
-    // Join the shuffled array back into a string and add the first letter back
     return firstLetter + shuffledArray.join('');
 }
 
