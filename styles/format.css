@@ -75,7 +75,7 @@ html {
 }
 
 .off-white {
-    background-color: var(--splash-screen-color);
+    background-color: var(--background-color);
 }
 
 .gap {
