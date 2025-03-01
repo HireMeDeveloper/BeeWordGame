@@ -24,12 +24,9 @@
 }
 
 :root {
-    --change-color: #009982;
-    --guess-color: #ABB7B7;
-    --win-color: #D2DB5C;
-    --answer-color: #FF5933;
-    --play-next-color: #00605C;
-    --splash-screen-color: #f5e8bb;
+    --background-color: #f5e8bb;
+    --accent-color: #e6c655;
+    --light-grey: #e6e6e6;
 }
 
 a {
@@ -238,7 +235,7 @@ html {
     top: 9vh;
     left: 50vw;
     transform: translateX(-50%);
-    z-index: 1;
+    z-index: 5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -251,7 +248,7 @@ html {
 .alert {
     border: none;
     pointer-events: none;
-    background-color: var(--win-color);
+    background-color: var(--accent-color);
     padding: 1em;
     padding-top: .5em;
     padding-bottom: .5em;
@@ -259,6 +256,7 @@ html {
     opacity: 1;
     transition: opacity 500ms ease-in-out;
     margin-bottom: .55em;
+    z-index: 5;
 }
 
 .alert.win {
@@ -323,6 +321,7 @@ html {
 
 .hex-text{
     padding-top: .4em;
+    pointer-events: none;
 }
 
 .hexagon.yellow {
@@ -419,21 +418,172 @@ html {
     font-weight: bold;
 }
 
-.rankings-box-down {
-    position: absolute;
-    width: 26em;
-    align-items: center;
-    display: flex;
-    justify-content: left;
-    padding-left: 1em;
-    font-size: 0.7em;
-    padding-bottom: .6em;
+.rankings-dropdown {
     cursor: pointer;
+    position: absolute;
+    width: 27em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    z-index: 3;
+}
+
+.rankings-dropdown.background {
+    padding-left: 1em;
+    padding-bottom: .6em;
     font-weight: bold;
-    border: dotted;
     height: 43em;
     background-color: white;
     z-index: 2;
+}
+
+.rankings-dropdown.heading{
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    font-weight: bold;
+    font-size: 1em;
+    width: 17.6em;
+    height: 3em;
+}
+
+.rankings-dropdown.subheading{
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    font-size: 0.5em;
+    width: 35em;
+}
+
+.rankings-dropdown.footer{
+    display: inline;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    font-size: 0.5em;
+    width: 35em;
+}
+
+.rankings-dropdown.left-label {
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    font-size: 0.4em;
+    width: 41em;
+    padding-left: 2em;
+}
+
+.rankings-dropdown.right-label{
+    justify-content: right;
+    align-items: right;
+    text-align: right;
+    font-size: 0.4em;
+    width: 41em;
+}
+
+.rank-parent {
+    width: 18em;
+    height: 1.4em;
+    border-radius: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.rank-parent.highlight{
+    background-color: var(--accent-color);
+    height: 1.6em;
+}
+
+.rank-grid {
+    position: absolute;
+    display: grid;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+    width: 30em;
+    height: 1.5em;
+}
+
+.rank {
+    cursor: pointer;
+    position: absolute;
+    width: 33em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.5em;
+    z-index: 3;
+}
+
+.rank.number {
+    visibility: hidden;
+    justify-content: center;
+    text-align: center;
+    margin-right: 32em;
+}
+
+.rank.number.highlight {
+    visibility: inherit;
+    background: none;
+}
+
+.rank.dot {
+    justify-content: left;
+    width: .6em;
+    height: .6em;
+    background: var(--light-grey);
+    border-radius: .3em;
+    margin-right: 32em;
+    z-index: 2;
+}
+
+.rank.dot.highlight {
+    background: none;
+}
+
+.rank.title {
+    justify-content: left;
+    text-align: left;
+    padding-left: 1.6em;
+}
+
+.rank.title.highlight {
+    font-weight: bold;
+    padding-bottom: .9em;
+}
+
+.rank.subtitle {
+    visibility: hidden;
+    justify-content: left;
+    text-align: left;
+    width: 37em;
+    margin-top: 2em;
+    font-size: 0.4em;
+}
+
+.rank.subtitle.highlight {
+    visibility: inherit;
+}
+
+.rank.score {
+    justify-content: right;
+    text-align: right;
+}
+
+.rank.line {
+    background: var(--light-grey);
+    width: 28.5em;
+    height: .1em;
+    clip-path: inset(0 0 0 var(--padding));
+    z-index: 2;
+}
+
+.rank.line.highlight {
+    background: none;
 }
 
 .rankings-box-text {

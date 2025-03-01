@@ -75,6 +75,13 @@
     height: 5em;
 }
 
+.shuffle-icon {
+    height: 1.25em;
+    user-select: none;
+    pointer-events: none;
+    cursor: pointer;
+}
+
 .icon {
     height: 1.25em;
     user-select: none;
@@ -234,4 +241,26 @@ button.hint.changed {
     gap: .5em;
     margin-bottom: 1em;
     margin-top: -.5em;
+}
+
+.game-input-text {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2em;
+    width: 14em;
+}
+
+.game-input-text::after {
+    content: "|";
+    color: var(--accent-color);
+    animation: cursor-blink 1s steps(2) infinite;
+}
+
+@keyframes cursor-blink {
+    0% {
+        opacity: 0;
+    }
 }

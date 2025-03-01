@@ -51,63 +51,154 @@
             </div>
         </div>
         <div class="dropdown-parent button-box-game" data-rankings-dropdown>
-            <div class="rankings-box-down gap" style="--amount: 44em" onclick="pressRankingsDropdown()"> 
+            <div class="rankings-dropdown heading gap" style="--amount: 4em">
+                Rankings
             </div>
+            <div class="rankings-dropdown subheading gap" style="--amount: 11.5em">
+                Ranks are based on a percentage of possible points in a puzzle.
+            </div>
+            <div class="rankings-dropdown left-label gap" style="--amount: 20em">
+                Rank
+            </div>
+            <div class="rankings-dropdown right-label gap" style="--amount: 20em">
+                Minimum Score
+            </div>
+
+            <div class="rank-grid gap" style="--amount: 11em" >
+                <div class="rank-parent" data-rank>
+                    <div class="rank number">1</div>
+                    <div class="rank dot" data-grey></div>
+                    <div class="rank title" data-title>Genius</div>
+                    <div class="rank subtitle">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 3.5em" data-grey></div>
+                    <div class="rank score">132</div>
+                </div>
+                <div class="rank-parent" data-rank>
+                    <div class="rank number">1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Amazing</div>
+                    <div class="rank subtitle">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 4.2em"></div>
+                    <div class="rank score">94</div>
+                </div>
+                <div class="rank-parent" data-rank>
+                    <div class="rank number">1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Great</div>
+                    <div class="rank subtitle">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 2.6em"></div>
+                    <div class="rank score">75</div>
+                </div>
+                <div class="rank-parent" data-rank>
+                    <div class="rank number">1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Nice</div>
+                    <div class="rank subtitle">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 2.2em"></div>
+                    <div class="rank score">47</div>
+                </div>
+                <div class="rank-parent" data-rank>
+                    <div class="rank number">1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Solid</div>
+                    <div class="rank subtitle">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 2.3em"></div>
+                    <div class="rank score">28</div>
+                </div>
+                <div class="rank-parent" data-rank>
+                    <div class="rank number">1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Good</div>
+                    <div class="rank subtitle">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 2.7em"></div>
+                    <div class="rank score">15</div>
+                </div>
+                <div class="rank-parent" data-rank>
+                    <div class="rank number">1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Moving Up</div>
+                    <div class="rank subtitle">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 5em"></div>
+                    <div class="rank score">9</div>
+                </div>
+                <div class="rank-parent" data-rank>
+                    <div class="rank number">1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Good Start</div>
+                    <div class="rank subtitle">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 5em"></div>
+                    <div class="rank score">4</div>
+                </div>
+                <div class="rank-parent highlight" data-rank>
+                    <div class="rank number highlight">1</div>
+                    <div class="rank dot highlight"></div>
+                    <div class="rank title highlight">Beginner</div>
+                    <div class="rank subtitle highlight">3 points to next rank, 131 to Genius</div>
+                    <div class="rank line highlight" style="--padding: 3.5em"></div>
+                    <div class="rank score highlight">0</div>
+                </div>
+            </div>
+
+            <div class="rankings-dropdown footer gap" style="--amount: 80em">
+                Check the <a href="mailto:customerhelp@independent?subject=Uimhir%20Puzzle%20Feedback.">Spelling Bee Forum</a> for help from the #HiveMind on your beeline to Genius.
+            </div>
+            <div class="rankings-dropdown background gap" style="--amount: 44em" onclick="pressRankingsDropdown()"></div>
         </div>
         <div class="dropdown-parent enabled button-box-game" data-words-dropdown data-default>
             <div class="dropdown-arrow gap" style="--amount: 11em">
                 <img src="resources/down-arrow.svg" class="icon" onclick="pressWordsDropdown()">
             </div>
-            <div class="dropdown gap" style="--amount: 11em">
-                Purity Putt Yurt
+            <div class="dropdown gap" style="--amount: 11em" data-word-list-small>
+                
             </div>
         </div>
         <div class="dropdown-parent button-box-game" data-words-dropdown>
             <div class="dropdown-arrow up gap" style="--amount: 11em">
                 <img src="resources/up-arrow.svg" class="icon" onclick="pressWordsDropdown()">
             </div>
-            <div class="dropdown down gap" style="--amount: 51em">
-                You have found 6 words
+            <div class="dropdown down gap" style="--amount: 51em" data-word-count>
+                You have found 0 words
             </div>
-            <div class="dropdown-text gap" style="--amount: 52em">
-                Purity Putt Yurt
-                <br>
-                Putt Yurt Purity
+            <div class="dropdown-text gap" style="--amount: 52em" data-word-list-full>
+                
             </div>
+        </div>
+        <div class="centered gap">
+            <div class="game-input-text gap"  style="--amount: 17em" data-input></div>
         </div>
         <div class="hexagon-grid centered gap" style="--amount: 12em">
             <div class="space"></div>
-            <div class="hexagon">
+            <div class="hexagon" data-key>
                 <div class="hex-text">T</div>
             </div>
-            <div class="hexagon">
+            <div class="hexagon" data-key>
                 <div class="hex-text">I</div>
             </div>
-            <div class="hexagon">
+            <div class="hexagon" data-key>
                 <div class="hex-text">R</div>
             </div>
-            <div class="hexagon yellow">
+            <div class="hexagon yellow" data-key data-center>
                 <div class="hex-text">U</div>
             </div>
-            <div class="hexagon">
+            <div class="hexagon" data-key>
                 <div class="hex-text">M</div>
             </div>
             <div class="space"></div>
-            <div class="hexagon">
+            <div class="hexagon" data-key>
                 <div class="hex-text">P</div>
             </div>
-            <div class="hexagon">
+            <div class="hexagon" data-key>
                 <div class="hex-text">Y</div>
             </div>
         </div>
         <div class="button-box-game gap centered" style="--amount: 5em">
-            <button class="button game">
+            <button class="button game" data-delete>
                 Delete
             </button>
-            <button class="button game refresh">
-                <img src="resources/Refresh.svg" class="icon">
+            <button class="button game refresh" data-shuffle>
+                <img src="resources/Refresh.svg" class="shuffle-icon">
             </button>
-            <button class="button game">
+            <button class="button game" data-enter>
                 Enter
             </button>
         </div>

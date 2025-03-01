@@ -20,13 +20,15 @@ let canInteract = false;
 
 window.dataLayer = window.dataLayer || [];
 
+var allWords = []
+
 fetchInfo()
 
 async function fetchInfo() {
     try {
         const response = await fetch(DICTIONARY);
         const json = await response.json();
-        let allWords = Object.keys(json);
+        allWords = Object.keys(json);
 
         // Create 7 letter list, and select word based on day offset
         let sevenLetterWords = allWords.filter(word => word.length === 7);
@@ -66,6 +68,10 @@ async function fetchInfo() {
 
         fetchCumulativeData()
         fetchGameState()
+
+        validLetters = shuffledWord;
+        LoadLettersIntoPuzzle()
+        startInteraction()
     } catch (error) {
         console.error('Error reading JSON file:', error);
     }
@@ -85,7 +91,7 @@ function shuffleString(str) {
     return arr.join('');
 }
 
-function showAlert(message, isWin = false, duration = 1000) {
+function showAlert(message, duration = 1000) {
     if (duration === null) {
         clearAlerts()
     }
@@ -93,9 +99,6 @@ function showAlert(message, isWin = false, duration = 1000) {
     const alert = document.createElement("div")
     alert.textContent = message
     alert.classList.add("alert")
-    
-    if (isWin) alert.classList.add("win")
-    else alert.classList.add("loss")
     
     alertContainer.prepend(alert)
     if (duration == null) return
@@ -235,12 +238,16 @@ function updateBodyColor(isWhite) {
 }
 
 function startInteraction() {
+    document, addEventListener("click", handleMouseClick)
     document, addEventListener("keydown", handleKeyPress)
 
     canInteract = true
 }
 
 function stopInteraction() {
+    document, removeEventListener("click", handleMouseClick)
+    document, removeEventListener("keydown", handleKeyPress)
+
     canInteract = false
 }
 
