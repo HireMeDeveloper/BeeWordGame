@@ -101,21 +101,25 @@ function submitGuess() {
 
     if (guess.toLowerCase().includes(validLetters[0]) == false) {
         showAlert("Not using the center letter!");
+        input.textContent = ""
         return
     }
 
     if (guess.length < 4) {
         showAlert("Word too short!");
+        input.textContent = ""
         return
     }
 
     if (allWords.includes(guess.toLowerCase()) == false) {
         showAlert("Not a valid word!");
+        input.textContent = ""
         return
     }
 
     if (gameState.words.includes(guess.toLowerCase())) {
         showAlert("Word already used!");
+        input.textContent = ""
         return
     }
 
