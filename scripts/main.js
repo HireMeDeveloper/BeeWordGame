@@ -1,4 +1,5 @@
 const DATE_OF_FIRST_PUZZLE = new Date(2024, 6, 25)
+const DAYS_OF_THE_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const ALLOW_MOBILE_SHARE = true; 
 
 const DICTIONARY = "resources/Dictionary.json";
@@ -45,6 +46,8 @@ let cumulativeData = {
 //}
 
 fetchInfo()
+
+console.log("Day of the week: " + DAYS_OF_THE_WEEK[getDayOfTheWeekFromGameNumber(gameState.gameNumber)]);
 
 async function fetchInfo() {
     try {
@@ -371,6 +374,8 @@ function updateCumulativeData() {
         cumulativeData[entryIndex] = todaysGame;
         storeCumulativeData()
     }
+
+    updateStats()
 }
 
 function cumulativeDataHasEntry(gameNumber) {
@@ -388,6 +393,16 @@ function cumulativeDataHasEntry(gameNumber) {
 function getCumulativeDataEntryIndex(gameNumber) {
     const index = cumulativeData.findIndex(entry => entry.number === gameNumber);
     return index !== -1 ? index : null;
+}
+
+function getDayOfTheWeekFromGameNumber(gameNumber) {
+    const msOffset = gameNumber * 24 * 60 * 60 * 1000; // Convert game number to milliseconds
+    const targetDate = new Date(DATE_OF_FIRST_PUZZLE.getTime() + msOffset);
+    var day = targetDate.getDay();
+
+    // Returns the day of the week (0-6) starting with sunday
+    if (day < 6) return day + 1;
+    else return 0;
 }
 
 function generateWelcomeMessage() {

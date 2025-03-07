@@ -1,5 +1,53 @@
 var validLetters = "utirmpy";
 
+var rankingNames = [
+    "Beginner",
+    "Good Start",
+    "Moving Up",
+    "Good",
+    "Solid",
+    "Nice",
+    "Great",
+    "Amazing",
+    "Genius"
+]
+
+var rankingValues = [
+    0,
+    4,
+    9,
+    15,
+    28,
+    47,
+    75,
+    94,
+    132
+]
+
+var rankupValues = [
+    4,
+    9,
+    15,
+    28,
+    47,
+    75,
+    94,
+    132,
+    999
+]
+
+var rankingBarWidths = [
+    "4em",
+    "5.25em",
+    "6.5em",
+    "7.75em",
+    "9em",
+    "10.25em",
+    "11.5em",
+    "12.75em",
+    "14em",
+]
+
 function loadGame() {
     updateWordsLists()
 }
@@ -127,6 +175,8 @@ function submitGuess() {
     var hasPanagram = (points > guess.length)
 
     gameState.points += points
+    gameState.panagrams += hasPanagram ? 1 : 0
+    gameState.currentRating = getRatingName(gameState.points)
     storeGameStateData();
 
     if (hasPanagram) showAlert("Panagram! +7 " + guess + ": +" + (points - 7));
@@ -138,6 +188,34 @@ function submitGuess() {
     input.textContent = ""
 
     updateWordsLists()
+}
+
+function getRatingName(points) { 
+    for (let i = 0; i < rankupValues.length; i++) {
+        if (points < rankupValues[0]) return rankingNames[0]
+        else if (points < rankupValues[1]) return rankingNames[1]
+        else if (points < rankupValues[2]) return rankingNames[2]
+        else if (points < rankupValues[3]) return rankingNames[3]
+        else if (points < rankupValues[4]) return rankingNames[4]
+        else if (points < rankupValues[5]) return rankingNames[5]
+        else if (points < rankupValues[6]) return rankingNames[6]
+        else if (points < rankupValues[7]) return rankingNames[7]
+        else return rankingNames[8]
+    }
+}
+
+function getRatingIndex(points) {
+    for (let i = 0; i < rankupValues.length; i++) {
+        if (points < rankupValues[0]) return 0
+        else if (points < rankupValues[1]) return 1
+        else if (points < rankupValues[2]) return 2
+        else if (points < rankupValues[3]) return 3
+        else if (points < rankupValues[4]) return 4
+        else if (points < rankupValues[5]) return 5
+        else if (points < rankupValues[6]) return 6
+        else if (points < rankupValues[7]) return 7
+        else return 8
+    }
 }
 
 function updateWordsLists() {
@@ -278,4 +356,185 @@ function updateRankings() {
 
     var rank = document.querySelector("[data-rankings-header-rank]")
     rank.textContent = currentRank
+}
+
+function updateStats() {
+    var totalGames = cumulativeData.length
+    var totalWords = 0
+    var totalPoints = 0
+    var totalPanagrams = 0
+    var ratings = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ]
+
+    cumulativeData.forEach(game => {
+        totalWords += game.words.length
+        totalPoints += game.points
+        totalPanagrams += game.panagrams
+
+        if (game.points < rankupValues[0]) ratings[0]++
+        else if (game.points < rankupValues[1]) ratings[1]++
+        else if (game.points < rankupValues[2]) ratings[2]++
+        else if (game.points < rankupValues[3]) ratings[3]++
+        else if (game.points < rankupValues[4]) ratings[4]++
+        else if (game.points < rankupValues[5]) ratings[5]++
+        else if (game.points < rankupValues[6]) ratings[6]++
+        else if (game.points < rankupValues[7]) ratings[7]++
+        else ratings[8]++
+    })
+
+    var mostFrequentRatingName = "Beginner"
+    var mostFrequentRating = 0
+
+    for (let i = 0; i < rankingValues.length; i++) {
+        if (ratings[i] > mostFrequentRating) {
+            mostFrequentRating = ratings[i]
+            mostFrequentRatingName = rankingNames[i]
+        }
+    }
+
+    var wordsFound = document.querySelector("[data-stats-words-found]")
+    wordsFound.textContent = totalWords
+
+    var gamesPlayed = document.querySelector("[data-stats-games-played]")
+    gamesPlayed.textContent = totalGames
+
+    var averageWords = document.querySelector("[data-stats-average-words]")
+    averageWords.textContent = (totalWords / totalGames).toFixed(1)
+
+    var panagrams = document.querySelector("[data-stats-panagrams-found]")
+    panagrams.textContent = totalPanagrams
+
+    var frequentRating = document.querySelector("[data-stats-frequent-rating]")
+    frequentRating.textContent = mostFrequentRatingName
+
+    var thisWeekBars = document.querySelectorAll("[data-stats-this-bar]")
+    var thisWeekRanks = document.querySelectorAll("[data-stats-this]")
+    var lastWeekBars = document.querySelectorAll("[data-stats-bar-last]")
+    var lastWeekRanks = document.querySelectorAll("[data-stats-last]")
+
+    var dayOfWeek = getDayOfTheWeekFromGameNumber(gameState.gameNumber)
+    var lastSundayGameNumber = gameState.gameNumber - dayOfWeek;
+
+    var thisWeekData = new Array(7).fill(null);
+    var lastWeekData = new Array(7).fill(null);
+
+    var mockData = [
+        {
+            number: 225,
+            words: gameState.words,
+            points: 0,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 224,
+            words: gameState.words,
+            points: 0,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 223,
+            words: gameState.words,
+            points: 20,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 222,
+            words: gameState.words,
+            points: 120,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 221,
+            words: gameState.words,
+            points: 60,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 220,
+            words: gameState.words,
+            points: 200,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 219,
+            words: gameState.words,
+            points: 100,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 218,
+            words: gameState.words,
+            points: 100,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 100,
+            words: gameState.words,
+            points: 200,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        },
+        {
+            number: 250,
+            words: gameState.words,
+            points: 200,
+            panagrams: gameState.panagrams,
+            rating: gameState.currentRating
+        }
+
+    ]
+
+    cumulativeData.forEach(game => {
+        var daysSinceSunday = game.number - lastSundayGameNumber;
+        var dayOfTheWeek = getDayOfTheWeekFromGameNumber(game.number);
+
+        if (daysSinceSunday >= 0 && daysSinceSunday < 7) {
+            thisWeekData[dayOfTheWeek] = game;
+        } else if (daysSinceSunday > -7 && daysSinceSunday < 7){
+            lastWeekData[dayOfTheWeek] = game;
+        }
+    });
+
+    for (let i = 0; i < 7; i++) {
+        if (thisWeekData[i]) {
+            var ratingName = getRatingName(thisWeekData[i].points);
+            var ratingWidth = rankingBarWidths[getRatingIndex(thisWeekData[i].points)];
+
+            console.log("Points: " + thisWeekData[i].points + " Rating: " + ratingWidth + " Index: " + getRatingIndex(thisWeekData[i].points))
+
+            thisWeekBars[i].style.width = ratingWidth;
+            thisWeekRanks[i].textContent = ratingName;
+        } else {
+            thisWeekBars[i].style.width = "0em";
+            thisWeekRanks[i].textContent = "--";
+        }
+
+        if (lastWeekData[i]) {
+            var ratingName = getRatingName(lastWeekData[i].points);
+            var ratingWidth = rankingBarWidths[getRatingIndex(lastWeekData[i].points)];
+
+            lastWeekBars[i].style.width = ratingWidth;
+            lastWeekRanks[i].textContent = ratingName;
+        } else {
+            lastWeekBars[i].style.width = "0em";
+            lastWeekRanks[i].textContent = "--";
+        }
+    }
 }
