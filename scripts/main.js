@@ -20,7 +20,29 @@ let canInteract = false;
 
 window.dataLayer = window.dataLayer || [];
 
+let targetGameNumber = 0
 var allWords = []
+
+let gameState = {
+    gameNumber: 0,
+    currentLetters: "",
+    words: [],
+    points: 0,
+    panagrams: 0,
+    currentRating: "Beginner",
+    completed: false,
+    hasOpenedPuzzle: false
+}
+let cumulativeData = {
+    games: [],
+}
+
+// Game: {
+//     words: [],
+//     points: 0,
+//     panagrams: 0,
+//     rating: "Beginner",
+//}
 
 fetchInfo()
 
@@ -40,6 +62,7 @@ async function fetchInfo() {
         const dayOffset = msOffset / 1000 / 60 / 60 / 24
 
         let targetIndex = Math.floor(dayOffset) % sevenLetterWords.length
+        targetGameNumber = targetIndex
         let selectedWord = sevenLetterWords[targetIndex]
 
         let shuffledWord = shuffleString(selectedWord)
@@ -158,11 +181,16 @@ function showPage(pageId, oldPage = null) {
 
     document.getElementById(pageId).classList.add('active')
     if (pageId === "game") {
+        gameState.hasOpenedPuzzle = true
+        storeGameStateData()
+
+        loadGame()
         updateBodyColor(true)
     } else if (pageId === "stats") {
         updateBodyColor(false)
     } else if (pageId === "welcome") {
         updateBodyColor(false)
+        generateWelcomeMessage()
     } else if (pageId === "info") {
         updateBodyColor(false)
     }
@@ -252,57 +280,114 @@ function stopInteraction() {
 }
 
 function storeGameStateData() {
-    //localStorage.setItem("conundrumGameState", JSON.stringify(gameState))
+    localStorage.setItem("word-wheel-game-state", JSON.stringify(gameState))
+    updateCumulativeData();
+
+    updateRankings()
 }
 
 function storeCumulativeData() {
-    //localStorage.setItem("conundrumCumulativeData", JSON.stringify(cumulativeData))
+    localStorage.setItem("word-wheel-cumulative-data", JSON.stringify(cumulativeData))
 }
 
 function fetchGameState() {
-    // const localStateJSON = localStorage.getItem("conundrumGameState")
-    // let localGameState = null
-    // if (localStateJSON != null) {
-    //     localGameState = JSON.parse(localStateJSON)
+    const localStateJSON = localStorage.getItem("word-wheel-game-state")
+    let localGameState = null
+    if (localStateJSON != null) {
+        localGameState = JSON.parse(localStateJSON)
 
-    //     if (localGameState.gameNumber === (targetGameNumber + 1)) {
-    //         gameState = localGameState
-    //     } else {
-    //         console.log("Game state was reset since puzzle does not match: " + localGameState.gameNumber + " & " + targetGameNumber)
-    //         resetGameState()
-    //     }
-    // } else {
-    //     console.log("Game state was reset since localStorage did not contain 'conundrumGameState'")
-    //     resetGameState()
-    // }
+        if (localGameState.gameNumber === (targetGameNumber)) {
+            gameState = localGameState
+        } else {
+            console.log("Game state was reset since puzzle does not match: " + localGameState.gameNumber + " & " + targetGameNumber)
+            resetGameState()
+        }
+    } else {
+        console.log("Game state was reset since localStorage did not contain 'conundrumGameState'")
+        resetGameState()
+    }
 
-    // updateCumulativeData()
+    updateCumulativeData()
 
-    // if (gameState.hasOpenedPuzzle === true || gameState.games[gameState.currentGame].wasStarted === true) {
-    //     loadPuzzleFromState(gameState.currentGame)
-    //     showPage("welcome")
-    // } else {
-    //     loadPuzzle(gameState.currentGame)
-    //     showPage('info')
-        
-    // }
+    if (gameState.hasOpenedPuzzle === true) {
+        showPage("welcome")
+    } else {
+        showPage('info')
+    }
 }
 
 function fetchCumulativeData() {
-    // const localStoreJSON = localStorage.getItem("conundrumCumulativeData")
-    // if (localStoreJSON != null) {
-    //     console.log("Cumulative Data was Found: " + localStoreJSON)
-    //     cumulativeData = JSON.parse(localStoreJSON)
-    //     storeCumulativeData()
-    // } else {
-    //     console.log("Cumulative Data was reset")
-    //     resetCumulativeData()
-    // }
+    const localStoreJSON = localStorage.getItem("word-wheel-cumulative-data")
+    if (localStoreJSON != null) {
+        console.log("Cumulative Data was Found: " + localStoreJSON)
+        cumulativeData = JSON.parse(localStoreJSON)
+        storeCumulativeData()
+    } else {
+        console.log("Cumulative Data was reset")
+        resetCumulativeData()
+    }
+}
+
+function resetGameState() { 
+    gameState = {
+        gameNumber: targetGameNumber,
+        currentLetters: currentLetters,
+        words: [],
+        points: 0,
+        panagrams: 0,
+        currentRating: "Beginner",
+        isComplete: false,
+        hasOpenedPuzzle: false
+    }
+    storeGameStateData()
 }
 
 function resetCumulativeData() {
-    // cumulativeData = []
-    // storeCumulativeData()
+    cumulativeData = []
+    storeCumulativeData()
+}
+
+function updateCumulativeData() {
+    let todaysGame = {
+        number: gameState.gameNumber,
+        words: gameState.words,
+        points: gameState.points,
+        panagrams: gameState.panagrams,
+        rating: gameState.currentRating
+    }
+
+    let hasEntry = cumulativeDataHasEntry(gameState.gameNumber)
+    console.log("Has entry: " + hasEntry)
+
+    if (hasEntry === false) {
+        console.log("Pushing in new entry");
+
+        cumulativeData.push(todaysGame);
+        storeCumulativeData()
+    } else {
+        console.log("Updating old entry");
+        let entryIndex = getCumulativeDataEntryIndex(gameState.gameNumber);
+
+        cumulativeData[entryIndex] = todaysGame;
+        storeCumulativeData()
+    }
+}
+
+function cumulativeDataHasEntry(gameNumber) {
+    return cumulativeData.some(entry => {
+        if (entry.number === gameNumber) {
+            console.log("Found an equal number")
+            return true;
+        } else {
+            console.log("Found no equal number")
+            return false;
+        }
+    })
+}
+
+function getCumulativeDataEntryIndex(gameNumber) {
+    const index = cumulativeData.findIndex(entry => entry.number === gameNumber);
+    return index !== -1 ? index : null;
 }
 
 function generateWelcomeMessage() {
@@ -316,7 +401,7 @@ function generateWelcomeMessage() {
 
     if (gameState.isComplete != true) {
         welcomeHeader.textContent = "Welcome Back"
-        welcomeMessage.innerHTML = "Click below to finish todays game."
+        welcomeMessage.innerHTML = "Click below to continue todays puzzle."
         welcomeMessage.classList.add('long')
         welcomeButton.textContent = "Continue"
         welcomeButton.onclick = () => {
@@ -325,7 +410,7 @@ function generateWelcomeMessage() {
         }
     } else {
         welcomeHeader.textContent = "Hello"
-        welcomeMessage.innerHTML = "There will be another <br> Conundrum tomorrow.<br> See you then!"
+        welcomeMessage.innerHTML = "There will be another <br> Word Wheel tomorrow.<br> See you then!"
         welcomeMessage.classList.remove('long')
         welcomeButton.textContent = "See Stats"
         welcomeButton.onclick = () => {
@@ -348,7 +433,7 @@ function generateWelcomeMessage() {
     const formattedToday = months[mm] + " " + dd + ", " + yyyy
     welcomeDate.textContent = formattedToday
 
-    welcomeNumber.textContent = "No. " + (targetIndex + 1)
+    welcomeNumber.textContent = "No. " + (targetGameNumber)
 }
 
 function updateInfoPage() {

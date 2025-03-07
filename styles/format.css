@@ -393,14 +393,28 @@ html {
     height: 40em;
     border-radius: 1.5em;
     align-items: start;
-    display: flex;
+    display: block;
     justify-content: left;
+    text-align: left;
     padding-left: 1.1em;
     margin-right: 2em;
     font-size: 0.7em;
     padding-top: 1.4em;
     z-index: 1;
     line-height: 1.8em;
+    white-space: normal;
+    word-wrap: normal;
+    overflow-wrap: normal;
+}
+
+.rankings-line{
+    position: absolute;
+    font-size: 1em;
+    width: .1em;
+    height: 11.5em;
+    background-color: var(--light-grey);
+    margin-right: 16.02em;
+    z-index: 3;
 }
 
 .rankings-box {
