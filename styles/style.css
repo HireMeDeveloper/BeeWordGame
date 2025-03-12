@@ -66,8 +66,17 @@
 
 .logo-horizontal-icon {
     height: 1.4em;
-    padding-left: 1em;
-    padding-right: 4em;
+    padding-left: 0.5em;
+    padding-right: 2em;
+}
+
+.rankings-page {
+    visibility: inherit;
+}
+
+.rankings-link {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .logo-vertical-icon {

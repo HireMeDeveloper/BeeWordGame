@@ -19,6 +19,11 @@
                     <img src="resources/word-wheel-horizontal.svg" class="logo-horizontal-icon">
                 </div>
                 <div>
+                    <a onclick="showPage('yesterday')">
+                        <img src="resources/yesterday-icon.svg" class="icon">
+                    </a>
+                </div>
+                <div>
                     <a onclick="showPage('info')">
                         <img src="resources/info-icon.svg" class="icon">
                     </a>
@@ -46,104 +51,12 @@
             <div class="rankings-box-text gap" style="--amount: 4em" data-rankings-header-info>
                 4 to Very Good
             </div>
-            <div class="rankings-box gap" style="--amount: 4em" onclick="pressRankingsDropdown()" data-rankings-header-rank>
+            <div class="rankings-box gap" style="--amount: 4em" onclick="" data-rankings-header-rank>
                 Good
             </div>
         </div>
         <div class="dropdown-parent button-box-game" data-rankings-dropdown>
-            <div class="rankings-line gap" style="--amount: 22.5em"></div>
-            <div class="rankings-dropdown heading gap" style="--amount: 4em">
-                Rankings
-            </div>
-            <div class="rankings-dropdown subheading gap" style="--amount: 11.5em">
-                Ranks are based on a percentage of possible points in a puzzle.
-            </div>
-            <div class="rankings-dropdown left-label gap" style="--amount: 20em">
-                Rank
-            </div>
-            <div class="rankings-dropdown right-label gap" style="--amount: 20em">
-                Minimum Score
-            </div>
-
-            <div class="rank-grid gap" style="--amount: 11em" >
-                <div class="rank-parent" data-rank="Genius" data-rank-value="132">
-                    <div class="rank number" data-rank-number>1</div>
-                    <div class="rank dot" data-grey></div>
-                    <div class="rank title" data-title>Genius</div>
-                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line" style="--padding: 3.5em" data-grey></div>
-                    <div class="rank score">132</div>
-                </div>
-                <div class="rank-parent" data-rank="Amazing" data-rank-value="94" data-rank-next-value="132" data-rank-next="Genius">
-                    <div class="rank number" data-rank-number>1</div>
-                    <div class="rank dot"></div>
-                    <div class="rank title">Amazing</div>
-                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line" style="--padding: 4.2em"></div>
-                    <div class="rank score">94</div>
-                </div>
-                <div class="rank-parent" data-rank="Great" data-rank-value="75" data-rank-next-value="94" data-rank-next="Amazing">
-                    <div class="rank number" data-rank-number>1</div>
-                    <div class="rank dot"></div>
-                    <div class="rank title">Great</div>
-                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line" style="--padding: 2.6em"></div>
-                    <div class="rank score">75</div>
-                </div>
-                <div class="rank-parent" data-rank="Nice" data-rank-value="47" data-rank-next-value="75" data-rank-next="Great">
-                    <div class="rank number" data-rank-number>1</div>
-                    <div class="rank dot"></div>
-                    <div class="rank title">Nice</div>
-                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line" style="--padding: 2.2em"></div>
-                    <div class="rank score">47</div>
-                </div>
-                <div class="rank-parent" data-rank="Solid" data-rank-value="28" data-rank-next-value="47" data-rank-next="Nice">
-                    <div class="rank number" data-rank-number>1</div>
-                    <div class="rank dot"></div>
-                    <div class="rank title">Solid</div>
-                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line" style="--padding: 2.3em"></div>
-                    <div class="rank score">28</div>
-                </div>
-                <div class="rank-parent" data-rank="Good" data-rank-value="15" data-rank-next-value="28" data-rank-next="Solid">
-                    <div class="rank number" data-rank-number>1</div>
-                    <div class="rank dot"></div>
-                    <div class="rank title">Good</div>
-                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line" style="--padding: 2.7em"></div>
-                    <div class="rank score">15</div>
-                </div>
-                <div class="rank-parent" data-rank="Moving Up" data-rank-value="9" data-rank-next-value="15" data-rank-next="Good">
-                    <div class="rank number" data-rank-number>1</div>
-                    <div class="rank dot"></div>
-                    <div class="rank title">Moving Up</div>
-                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line" style="--padding: 5em"></div>
-                    <div class="rank score">9</div>
-                </div>
-                <div class="rank-parent" data-rank="Good Start" data-rank-value="4" data-rank-next-value="9" data-rank-next="Moving Up">
-                    <div class="rank number" data-rank-number>1</div>
-                    <div class="rank dot"></div>
-                    <div class="rank title">Good Start</div>
-                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line" style="--padding: 5em"></div>
-                    <div class="rank score">4</div>
-                </div>
-                <div class="rank-parent highlight" data-rank="Beginner" data-rank-value="0" data-rank-next-value="4" data-rank-next="Good Start">
-                    <div class="rank number highlight" data-rank-number>1</div>
-                    <div class="rank dot highlight"></div>
-                    <div class="rank title highlight">Beginner</div>
-                    <div class="rank subtitle highlight" data-subtitle>3 points to next rank, 131 to Genius</div>
-                    <div class="rank line highlight" style="--padding: 3.5em"></div>
-                    <div class="rank score highlight">0</div>
-                </div>
-            </div>
-
-            <div class="rankings-dropdown footer gap" style="--amount: 80em">
-                Check the <a href="mailto:customerhelp@independent?subject=Uimhir%20Puzzle%20Feedback.">Spelling Bee Forum</a> for help from the #HiveMind on your beeline to Genius.
-            </div>
-            <div class="rankings-dropdown background gap" style="--amount: 44em" onclick="pressRankingsDropdown()"></div>
+            
         </div>
         <div class="dropdown-parent enabled button-box-game" data-words-dropdown data-default>
             <div class="dropdown-arrow gap" style="--amount: 11em">
@@ -440,10 +353,13 @@
                         Panagrams found: &nbsp;<div class="bold" data-stats-panagrams-found>0</div>
                     </div>
                     <div class="box left stats heading gap" style="--amount: 0.8em">
-                        Most frequent rating: &nbsp;<div class="bold" data-stats-frequent-rating>Beginner</div>
+                        Most frequent ranking: &nbsp;<div class="bold" data-stats-frequent-rating>Beginner</div>
+                    </div>
+                    <div class="box left stats heading gap" style="--amount: 2em">
+                        What are&nbsp;<a class="rankings-link" onclick="showPage('rankings')"> rankings based on</a>?
                     </div>
                     <div class="centered">
-                        <button class="button share center gap" style="--amount: 9.2em" data-play-button onclick="showPage('game')">
+                        <button class="button share center gap" style="--amount: 6em" data-play-button onclick="showPage('game')">
                             Share
                         </button>
                     </div>
@@ -471,6 +387,145 @@
         </div>
         <div class="text-welcome-puzzle centered" data-welcome-number style="visibility: hidden;">
             None
+        </div>
+    </div>
+    <div id="yesterday" class="page">
+        <div>
+            <div class="alert-container" data-stats-alert-container></div>
+            <div class="box right">
+                <a onclick="showPage('game')">
+                    <img src="resources/x-symbol.svg" class="icon">
+                </a>
+            </div>
+            <div class="centered gap" style="--amount: 2em">
+                <div class="text-box-stats heading centered">
+                    Yesterday's Answers
+                </div>
+            </div>
+            <div class="centered gap" style="--amount: 2em">
+                <div class="text-box-stats heading centered" data-yesterday-puzzle>
+                </div>
+            </div>
+            <div class="centered gap" style="--amount: 2em">
+                <div class="text-box-stats heading centered" data-yesterday-details>
+                    0 of 42 words | 0 of 187 points
+                </div>
+            </div>
+            <div class="centered gap" style="--amount: 2em">
+                <div class="text-box-stats heading centered" data-yesterday-words>
+                </div>
+            </div>
+            <div class="centered gap" style="--amount: 1em">
+                <div class="text-box-stats heading centered">
+                    The highlighted letter indicates the required letter. Highlighted words indicate panagrams.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rankings" class="page">
+        <div class="">
+            <div class="box right">
+                <a onclick="showPage('game')">
+                    <img src="resources/x-symbol.svg" class="icon">
+                </a>
+            </div>
+            <div class="rankings-line gap" style="--amount: 1em"></div>
+            <div class="rankings-dropdown heading gap" style="--amount: 4em">
+                Rankings
+            </div>
+            <div class="rankings-dropdown subheading gap" style="--amount: 11.5em">
+                Ranks are based on a percentage of possible points in a puzzle.
+            </div>
+            <div class="rankings-dropdown left-label gap" style="--amount: 20em">
+                Rank
+            </div>
+            <div class="rankings-dropdown right-label gap" style="--amount: 20em">
+                Minimum Score
+            </div>
+            <div class="rank-grid gap" style="--amount: 11em">
+                <div class="rank-parent" data-rank="Genius" data-rank-value="132">
+                    <div class="rank number" data-rank-number>1</div>
+                    <div class="rank dot" data-grey></div>
+                    <div class="rank title" data-title>Genius</div>
+                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 3.5em" data-grey></div>
+                    <div class="rank score">132</div>
+                </div>
+                <div class="rank-parent" data-rank="Amazing" data-rank-value="94" data-rank-next-value="132"
+                    data-rank-next="Genius">
+                    <div class="rank number" data-rank-number>1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Amazing</div>
+                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 4.2em"></div>
+                    <div class="rank score">94</div>
+                </div>
+                <div class="rank-parent" data-rank="Great" data-rank-value="75" data-rank-next-value="94" data-rank-next="Amazing">
+                    <div class="rank number" data-rank-number>1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Great</div>
+                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 2.6em"></div>
+                    <div class="rank score">75</div>
+                </div>
+                <div class="rank-parent" data-rank="Nice" data-rank-value="47" data-rank-next-value="75" data-rank-next="Great">
+                    <div class="rank number" data-rank-number>1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Nice</div>
+                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 2.2em"></div>
+                    <div class="rank score">47</div>
+                </div>
+                <div class="rank-parent" data-rank="Solid" data-rank-value="28" data-rank-next-value="47" data-rank-next="Nice">
+                    <div class="rank number" data-rank-number>1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Solid</div>
+                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 2.3em"></div>
+                    <div class="rank score">28</div>
+                </div>
+                <div class="rank-parent" data-rank="Good" data-rank-value="15" data-rank-next-value="28" data-rank-next="Solid">
+                    <div class="rank number" data-rank-number>1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Good</div>
+                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 2.7em"></div>
+                    <div class="rank score">15</div>
+                </div>
+                <div class="rank-parent" data-rank="Moving Up" data-rank-value="9" data-rank-next-value="15" data-rank-next="Good">
+                    <div class="rank number" data-rank-number>1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Moving Up</div>
+                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 5em"></div>
+                    <div class="rank score">9</div>
+                </div>
+                <div class="rank-parent" data-rank="Good Start" data-rank-value="4" data-rank-next-value="9"
+                    data-rank-next="Moving Up">
+                    <div class="rank number" data-rank-number>1</div>
+                    <div class="rank dot"></div>
+                    <div class="rank title">Good Start</div>
+                    <div class="rank subtitle" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line" style="--padding: 5em"></div>
+                    <div class="rank score">4</div>
+                </div>
+                <div class="rank-parent highlight" data-rank="Beginner" data-rank-value="0" data-rank-next-value="4"
+                    data-rank-next="Good Start">
+                    <div class="rank number highlight" data-rank-number>1</div>
+                    <div class="rank dot highlight"></div>
+                    <div class="rank title highlight">Beginner</div>
+                    <div class="rank subtitle highlight" data-subtitle>3 points to next rank, 131 to Genius</div>
+                    <div class="rank line highlight" style="--padding: 3.5em"></div>
+                    <div class="rank score highlight">0</div>
+                </div>
+            </div>
+            <div class="rankings-dropdown footer gap" style="--amount: 40em">
+                Check the <a href="mailto:customerhelp@independent?subject=Uimhir%20Puzzle%20Feedback.">Spelling Bee Forum</a> for
+                help from the #HiveMind on your beeline to Genius.
+            </div>
+            <div class="dropdown-parent enable button-box-game gap"  style="--amount: 10em">
+                
+            </div>
         </div>
     </div>
 </body>

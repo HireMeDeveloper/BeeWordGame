@@ -14,19 +14,27 @@ const playButton = document.querySelector("[data-play-button]")
 const todaysStatisticGrid = document.querySelector("[data-statistics-today]");
 const overallStatisticGrid = document.querySelector("[data-statistics-overall]");
 
-let currentLetters = "";
-let currentPuzzleList = []
-
 let canInteract = false;
 
 window.dataLayer = window.dataLayer || [];
 
-let targetGameNumber = 0
 var allWords = []
+let sevenLetterWords = [];
+
+let targetGameNumber = 0
+let yesterdaysGameNumber = 0
+
+let currentLetters = "";
+let yesterdaysLetters = "";
+
+let currentPuzzleList = []
+let yesterdaysPuzzleList = []
 
 let gameState = {
     gameNumber: 0,
     currentLetters: "",
+    yesterdaysLetters: "",
+    yesterdaysAnswers: [],
     words: [],
     points: 0,
     panagrams: 0,
@@ -56,38 +64,19 @@ async function fetchInfo() {
         allWords = Object.keys(json);
 
         // Create 7 letter list, and select word based on day offset
-        let sevenLetterWords = allWords.filter(word => word.length === 7);
+        sevenLetterWords = allWords.filter(word => word.length === 7);
 
         console.log("Total Words: " + allWords.length);
         console.log("7 Letter Words: " + sevenLetterWords.length);
 
-        const msOffset = Date.now() - DATE_OF_FIRST_PUZZLE
-        const dayOffset = msOffset / 1000 / 60 / 60 / 24
+        targetGameNumber = getGameNumberForDate(new Date());
+        yesterdaysGameNumber = getGameNumberForDate(new Date(Date.now() - 24 * 60 * 60 * 1000));
 
-        let targetIndex = Math.floor(dayOffset) % sevenLetterWords.length
-        targetGameNumber = targetIndex
-        let selectedWord = sevenLetterWords[targetIndex]
+        currentLetters = getLettersFromGameNumber(targetGameNumber);
+        yesterdaysLetters = getLettersFromGameNumber(yesterdaysGameNumber);
 
-        let shuffledWord = shuffleString(selectedWord)
-        currentLetters = shuffledWord
-
-        console.log("The current letters are: " + currentLetters)
-
-        const selectedWordLetters = new Set(shuffledWord.split(''));
-
-        const validWordsForSelectedWord = allWords.filter(word => {
-            // Check if every letter in the word is part of the shuffled word's letters
-            const wordLetters = new Set(word.split(''));
-            return [...wordLetters].every(letter => selectedWordLetters.has(letter));
-        });
-
-        console.log("Valid Words for Selected Word: " + validWordsForSelectedWord.length);
-        console.log("The words are: " + validWordsForSelectedWord.toString());
-
-        const selectedLetter = shuffledWord[0]; // Choosing the first letter as an example
-        const filteredByLetter = validWordsForSelectedWord.filter(word => word.includes(selectedLetter));
-
-        currentPuzzleList = filteredByLetter
+        currentPuzzleList = getPuzzleListFromShuffledWord(currentLetters);
+        yesterdaysPuzzleList = getPuzzleListFromShuffledWord(yesterdaysLetters);
 
         console.log("The number of possible words are: " + currentPuzzleList.length)
         console.log("The words are: " + currentPuzzleList.toString())
@@ -95,21 +84,66 @@ async function fetchInfo() {
         fetchCumulativeData()
         fetchGameState()
 
-        validLetters = shuffledWord;
+        validLetters = currentLetters;
         LoadLettersIntoPuzzle()
         startInteraction()
+
+        updateYesterdayMenu()
     } catch (error) {
         console.error('Error reading JSON file:', error);
     }
 }
 
-function shuffleString(str) {
+function getGameNumberForDate(date) {
+    const msOffset = date - DATE_OF_FIRST_PUZZLE
+    const dayOffset = msOffset / 1000 / 60 / 60 / 24
+
+    return Math.floor(dayOffset) % sevenLetterWords.length
+}
+
+function getLettersFromGameNumber(gameNumber) {
+    let selectedWord = sevenLetterWords[gameNumber]
+
+    let shuffledWord = shuffleString(selectedWord, gameNumber)
+    console.log("The current letters are: " + shuffledWord)
+    return shuffledWord;
+}
+
+function getPuzzleListFromShuffledWord(shuffledWord) {
+    const selectedWordLetters = new Set(shuffledWord.split(''));
+
+    const validWordsForSelectedWord = allWords.filter(word => {
+        // Check if every letter in the word is part of the shuffled word's letters
+        const wordLetters = new Set(word.split(''));
+        return [...wordLetters].every(letter => selectedWordLetters.has(letter));
+    });
+
+    console.log("Valid Words for Selected Word: " + validWordsForSelectedWord.length);
+    console.log("The words are: " + validWordsForSelectedWord.toString());
+
+    const selectedLetter = shuffledWord[0]; // Choosing the first letter as an example
+    return validWordsForSelectedWord.filter(word => word.includes(selectedLetter));
+}
+
+function shuffleString(str, seed) {
     // Convert the string to an array of characters
     const arr = str.split('');
 
+    // Seeded random function using mulberry32 algorithm
+    function mulberry32(a) {
+        return function() {
+            var t = a += 0x6D2B79F5;
+            t = Math.imul(t ^ t >>> 15, t | 1);
+            t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+            return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        }
+    }
+
+    const random = mulberry32(seed);
+
     // Shuffle the array using the Fisher-Yates algorithm
     for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
     }
 
@@ -172,7 +206,7 @@ function showPage(pageId, oldPage = null) {
         }
     }
 
-    if (pageId != "welcome" && pageId != "game" && pageId != "info" && pageId != "stats") {
+    if (pageId != "welcome" && pageId != "game" && pageId != "info" && pageId != "stats" && pageId != "yesterday" && pageId != "rankings") {
         console.log("Invalid page: " + pageId + ". Openning 'game' page.")
         pageId = "game"
     }
@@ -196,6 +230,10 @@ function showPage(pageId, oldPage = null) {
         generateWelcomeMessage()
     } else if (pageId === "info") {
         updateBodyColor(false)
+    } else if (pageId === "yesterday") { 
+        updateBodyColor(true)
+    } else if (pageId === "rankings") {
+        updateBodyColor(true)
     }
 
     if (oldPage != null) lastPage = oldPage
@@ -335,6 +373,8 @@ function resetGameState() {
     gameState = {
         gameNumber: targetGameNumber,
         currentLetters: currentLetters,
+        yesterdaysLetters: yesterdaysLetters,
+        yesterdaysAnswers: yesterdaysPuzzleList,
         words: [],
         points: 0,
         panagrams: 0,
@@ -449,6 +489,41 @@ function generateWelcomeMessage() {
     welcomeDate.textContent = formattedToday
 
     welcomeNumber.textContent = "No. " + (targetGameNumber)
+}
+
+function updateYesterdayMenu() {
+    var yesterdayPuzzleTitle = document.querySelector("[data-yesterday-puzzle]")
+
+    for (let i = 1; i < 4; i++) {
+        var letter = yesterdaysLetters[i]
+        var newDiv = document.createElement("div")
+        newDiv.textContent = letter.toUpperCase()
+        yesterdayPuzzleTitle.appendChild(newDiv)
+    }
+
+    var goldLetter = yesterdaysLetters[0]
+    var goldDiv = document.createElement("div")
+    goldDiv.classList.add("gold")
+    goldDiv.textContent = goldLetter.toUpperCase()
+    yesterdayPuzzleTitle.appendChild(goldDiv)
+
+    for (let i = 4; i < 7; i++) {
+        var letter = yesterdaysLetters[i]
+        var newDiv = document.createElement("div")
+        newDiv.textContent = letter.toUpperCase()
+        yesterdayPuzzleTitle.appendChild(newDiv)
+    }
+
+    var yesterdayDetails = document.querySelector("[data-yesterday-details]")
+    var yesterdayWords = document.querySelector("[data-yesterday-words]")
+
+    var text = ""
+    gameState.yesterdaysAnswers.forEach(word => { 
+        text += word + ", "
+    })
+
+    console.log("Yesterdays Words: " + text);
+    yesterdayWords.textContent = text;
 }
 
 function updateInfoPage() {

@@ -129,18 +129,22 @@ function shuffleKey(str) {
     return firstLetter + shuffledArray.join('');
 }
 
-function pressKey(key, ignoreLength = false) {
+function pressKey(key) {
     var input = document.querySelector("[data-input]")
-    input.textContent += key.toUpperCase()
+    var newDiv = document.createElement("div")
+    if (validLetters[0].toLocaleLowerCase() == key.toLocaleLowerCase()) {
+        newDiv.classList.add("gold")
+    }
+    newDiv.textContent = key.toUpperCase()
+    input.appendChild(newDiv)
 }
 
 function deleteKey() {
     var input = document.querySelector("[data-input]")
-    var text = input.textContent
-    if (text.length === 0) return
-
-    text = text.slice(0, -1);
-    input.textContent = text
+    if (input.lastElementChild) {
+        // Remove the last div (child) from the container
+        input.removeChild(input.lastElementChild);
+    }
 }
 
 function submitGuess() {
@@ -336,14 +340,17 @@ function updateRankings() {
             div.classList.remove("yellow")
             div.classList.remove("active")
             div.textContent = ""
+            div.onclick = null
         } else if (currentPoints >= value && currentPoints < next) {
             div.classList.add("active")
             div.classList.remove("yellow")
             div.textContent = currentPoints
+            div.onclick = () => showPage("rankings")
         } else {
             div.classList.remove("active")
             div.classList.add("yellow")
             div.textContent = ""
+            div.onclick = null
         }
     })
 

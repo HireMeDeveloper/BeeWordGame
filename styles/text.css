@@ -27,6 +27,10 @@
     font-weight: bold;
 }
 
+.gold {
+    color: var(--accent-color);
+}
+
 .text-game-number {
     font-size: 1em;
     font-weight: bold;

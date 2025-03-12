@@ -407,14 +407,27 @@ html {
     overflow-wrap: normal;
 }
 
-.rankings-line{
+.rankings-line {
     position: absolute;
     font-size: 1em;
     width: .1em;
     height: 11.5em;
     background-color: var(--light-grey);
-    margin-right: 16.02em;
+    margin-right: 0em;
     z-index: 3;
+}
+
+.rankings-menu {
+    position: absolute;
+    width: 27em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    z-index: 3;
+    width: 26em;
+    border-radius: .5em;
+    height: 40em;
 }
 
 .rankings-box {
@@ -428,19 +441,16 @@ html {
     padding-left: 1em;
     font-size: 0.7em;
     padding-bottom: .6em;
-    cursor: pointer;
     font-weight: bold;
 }
 
 .rankings-dropdown {
-    cursor: pointer;
     position: absolute;
     width: 27em;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.7em;
-    z-index: 3;
 }
 
 .rankings-dropdown.background {
@@ -449,7 +459,6 @@ html {
     font-weight: bold;
     height: 43em;
     background-color: white;
-    z-index: 2;
 }
 
 .rankings-dropdown.heading{
@@ -522,7 +531,6 @@ html {
 }
 
 .rank {
-    cursor: pointer;
     position: absolute;
     width: 33em;
     display: flex;
@@ -645,4 +653,6 @@ html {
     padding-top: .2em;
     align-items: center;
     font-size: .5em;
+    cursor: pointer;
+    z-index: 3;
 }
