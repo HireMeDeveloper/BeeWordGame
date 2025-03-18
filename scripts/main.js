@@ -220,6 +220,7 @@ function showPage(pageId, oldPage = null) {
     if (pageId === "game") {
         gameState.hasOpenedPuzzle = true
         storeGameStateData()
+        resetWordsDropdowns()
 
         loadGame()
         updateBodyColor(true)
@@ -258,7 +259,6 @@ function pressStatsButton(buttonId) {
 }
 
 function pressWordsDropdown() {
-    resetRankingsDropdowns()
     const wordsDropdowns = document.querySelectorAll("[data-words-dropdown]")
     wordsDropdowns.forEach(dropdown => {
         dropdown.classList.toggle('enabled')
@@ -519,11 +519,11 @@ function updateYesterdayMenu() {
 
     var text = ""
     gameState.yesterdaysAnswers.forEach(word => { 
-        text += word + ", "
+        text += capitalizeFirstLetter(word) + " &nbsp&nbsp "
     })
 
     console.log("Yesterdays Words: " + text);
-    yesterdayWords.textContent = text;
+    yesterdayWords.innerHTML = text;
 }
 
 function updateInfoPage() {

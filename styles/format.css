@@ -413,7 +413,7 @@ html {
     width: .1em;
     height: 11.5em;
     background-color: var(--light-grey);
-    margin-right: 0em;
+    margin-right: 16.02em;
     z-index: 3;
 }
 
@@ -451,6 +451,7 @@ html {
     align-items: center;
     justify-content: center;
     font-size: 0.7em;
+    z-index: 3;
 }
 
 .rankings-dropdown.background {
@@ -459,6 +460,7 @@ html {
     font-weight: bold;
     height: 43em;
     background-color: white;
+    z-index: 2;
 }
 
 .rankings-dropdown.heading{

@@ -13,7 +13,7 @@
 <body class="off-white">
     <div id="game" class="page">
         <div>
-            <div class="alert-container" data-alert-container></div>
+            <div class="alert-container gap" style="--amount: 5em" data-alert-container></div>
             <div class="header">
                 <div>
                     <img src="resources/word-wheel-horizontal.svg" class="logo-horizontal-icon">
@@ -397,39 +397,40 @@
                     <img src="resources/x-symbol.svg" class="icon">
                 </a>
             </div>
-            <div class="centered gap" style="--amount: 2em">
-                <div class="text-box-stats heading centered">
-                    Yesterday's Answers
+            <div class="yesterday-heading centered gap" style="--amount: 2em">
+                Yesterday's Answers
+            </div>
+            <div class=" yesterday-letters centered gap" style="--amount: 1em" data-yesterday-puzzle>
+                
+            </div>
+            <div class="yesterday-details centered gap" style="--amount: .2em" data-yesterday-details>
+                0 of 42 words | 0 of 187 points
+            </div>
+            <div class="centered">
+                <div class="yesterday-words centered gap" style="--amount: 2em" data-yesterday-words>
+                
                 </div>
             </div>
-            <div class="centered gap" style="--amount: 2em">
-                <div class="text-box-stats heading centered" data-yesterday-puzzle>
-                </div>
-            </div>
-            <div class="centered gap" style="--amount: 2em">
-                <div class="text-box-stats heading centered" data-yesterday-details>
-                    0 of 42 words | 0 of 187 points
-                </div>
-            </div>
-            <div class="centered gap" style="--amount: 2em">
-                <div class="text-box-stats heading centered" data-yesterday-words>
-                </div>
-            </div>
-            <div class="centered gap" style="--amount: 1em">
-                <div class="text-box-stats heading centered">
+            <div class="centered">
+                <div class="yesterday-footer centered gap" style="--amount: 1em">
                     The highlighted letter indicates the required letter. Highlighted words indicate panagrams.
                 </div>
             </div>
         </div>
     </div>
     <div id="rankings" class="page">
-        <div class="">
-            <div class="box right">
-                <a onclick="showPage('game')">
-                    <img src="resources/x-symbol.svg" class="icon">
-                </a>
-            </div>
-            <div class="rankings-line gap" style="--amount: 1em"></div>
+        <div class="box right">
+            <a onclick="showPage('game')">
+                <img src="resources/x-symbol.svg" class="icon">
+            </a>
+        </div>
+        <div>
+            <div class="alert-container" data-alert-container></div>
+            
+            <div class="underline" style="visibility: hidden;"></div>
+        </div>
+        <div class="dropdown-parent enabled button-box-game" data-rankings-dropdown>
+            <div class="rankings-line gap" style="--amount: 22.5em"></div>
             <div class="rankings-dropdown heading gap" style="--amount: 4em">
                 Rankings
             </div>
@@ -442,6 +443,7 @@
             <div class="rankings-dropdown right-label gap" style="--amount: 20em">
                 Minimum Score
             </div>
+        
             <div class="rank-grid gap" style="--amount: 11em">
                 <div class="rank-parent" data-rank="Genius" data-rank-value="132">
                     <div class="rank number" data-rank-number>1</div>
@@ -460,7 +462,8 @@
                     <div class="rank line" style="--padding: 4.2em"></div>
                     <div class="rank score">94</div>
                 </div>
-                <div class="rank-parent" data-rank="Great" data-rank-value="75" data-rank-next-value="94" data-rank-next="Amazing">
+                <div class="rank-parent" data-rank="Great" data-rank-value="75" data-rank-next-value="94"
+                    data-rank-next="Amazing">
                     <div class="rank number" data-rank-number>1</div>
                     <div class="rank dot"></div>
                     <div class="rank title">Great</div>
@@ -492,7 +495,8 @@
                     <div class="rank line" style="--padding: 2.7em"></div>
                     <div class="rank score">15</div>
                 </div>
-                <div class="rank-parent" data-rank="Moving Up" data-rank-value="9" data-rank-next-value="15" data-rank-next="Good">
+                <div class="rank-parent" data-rank="Moving Up" data-rank-value="9" data-rank-next-value="15"
+                    data-rank-next="Good">
                     <div class="rank number" data-rank-number>1</div>
                     <div class="rank dot"></div>
                     <div class="rank title">Moving Up</div>
@@ -519,14 +523,52 @@
                     <div class="rank score highlight">0</div>
                 </div>
             </div>
-            <div class="rankings-dropdown footer gap" style="--amount: 40em">
-                Check the <a href="mailto:customerhelp@independent?subject=Uimhir%20Puzzle%20Feedback.">Spelling Bee Forum</a> for
-                help from the #HiveMind on your beeline to Genius.
+            <div class="rankings-dropdown footer gap" style="--amount: 80em">
+                Check the <a href="mailto:customerhelp@independent?subject=Uimhir%20Puzzle%20Feedback.">Spelling Bee Forum</a>
+                for help from the #HiveMind on your beeline to Genius.
             </div>
-            <div class="dropdown-parent enable button-box-game gap"  style="--amount: 10em">
-                
+            <div class="rankings-dropdown background gap" style="--amount: 44em"></div>
+        </div>
+    
+        <div class="hexagon-grid centered gap" style="--amount: 12em ">
+            <div class="space"></div>
+            <div class="hexagon">
+                <div class="hex-text">T</div>
+            </div>
+            <div class="hexagon">
+                <div class="hex-text">I</div>
+            </div>
+            <div class="hexagon">
+                <div class="hex-text">R</div>
+            </div>
+            <div class="hexagon yellow">
+                <div class="hex-text">U</div>
+            </div>
+            <div class="hexagon">
+                <div class="hex-text">M</div>
+            </div>
+            <div class="space"></div>
+            <div class="hexagon">
+                <div class="hex-text">P</div>
+            </div>
+            <div class="hexagon">
+                <div class="hex-text">Y</div>
             </div>
         </div>
+        <div class="button-box-game gap centered" style="--amount: 5em">
+            <button class="button game">
+                Delete
+            </button>
+            <button class="button game refresh">
+                <img src="resources/Refresh.svg" class="shuffle-icon">
+            </button>
+            <button class="button game">
+                Enter
+            </button>
+        </div>
+        <div class="gap" style="--amount:5em"></div>
+        </div>
+           
     </div>
 </body>
 </html>

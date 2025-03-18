@@ -273,3 +273,39 @@ button.hint.changed {
         opacity: 0;
     }
 }
+
+.yesterday-heading {
+    position: absolute;
+    font-size: 1.2em;
+    margin-top: -1.2em;
+}
+
+.yesterday-letters {
+    font-size: 1.6em;
+    font-weight: bolder;
+    display: flex;
+    gap: .2em;
+}
+
+.yesterday-details {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.yesterday-words {
+    font-size: 1em;
+    font-weight: normal;
+    display: flex;
+    align-items: start;
+    width: 16em;
+    height: 18em;
+    text-align: left;
+    line-height: 1.8em;
+}
+
+.yesterday-footer {
+    width: 20em;
+    font-size: 0.8em;
+    font-weight: normal;
+    text-align: left;
+}
