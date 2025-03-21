@@ -12,30 +12,6 @@ var rankingNames = [
     "Genius"
 ]
 
-var rankingValues = [
-    0,
-    4,
-    9,
-    15,
-    28,
-    47,
-    75,
-    94,
-    132
-]
-
-var rankupValues = [
-    4,
-    9,
-    15,
-    28,
-    47,
-    75,
-    94,
-    132,
-    999
-]
-
 var rankingBarWidths = [
     "4em",
     "5.25em",
@@ -195,29 +171,29 @@ function submitGuess() {
 }
 
 function getRatingName(points) { 
-    for (let i = 0; i < rankupValues.length; i++) {
-        if (points < rankupValues[0]) return rankingNames[0]
-        else if (points < rankupValues[1]) return rankingNames[1]
-        else if (points < rankupValues[2]) return rankingNames[2]
-        else if (points < rankupValues[3]) return rankingNames[3]
-        else if (points < rankupValues[4]) return rankingNames[4]
-        else if (points < rankupValues[5]) return rankingNames[5]
-        else if (points < rankupValues[6]) return rankingNames[6]
-        else if (points < rankupValues[7]) return rankingNames[7]
+    for (let i = 0; i < gameState.rankUpValues.length; i++) {
+        if (points < gameState.rankUpValues[0]) return rankingNames[0]
+        else if (points < gameState.rankUpValues[1]) return rankingNames[1]
+        else if (points < gameState.rankUpValues[2]) return rankingNames[2]
+        else if (points < gameState.rankUpValues[3]) return rankingNames[3]
+        else if (points < gameState.rankUpValues[4]) return rankingNames[4]
+        else if (points < gameState.rankUpValues[5]) return rankingNames[5]
+        else if (points < rgameState.rankUpValues[6]) return rankingNames[6]
+        else if (points < gameState.rankUpValues[7]) return rankingNames[7]
         else return rankingNames[8]
     }
 }
 
 function getRatingIndex(points) {
-    for (let i = 0; i < rankupValues.length; i++) {
-        if (points < rankupValues[0]) return 0
-        else if (points < rankupValues[1]) return 1
-        else if (points < rankupValues[2]) return 2
-        else if (points < rankupValues[3]) return 3
-        else if (points < rankupValues[4]) return 4
-        else if (points < rankupValues[5]) return 5
-        else if (points < rankupValues[6]) return 6
-        else if (points < rankupValues[7]) return 7
+    for (let i = 0; i < gameState.rankUpValues.length; i++) {
+        if (points < gameState.rankUpValues[0]) return 0
+        else if (points < gameState.rankUpValues[1]) return 1
+        else if (points < gameState.rankUpValues[2]) return 2
+        else if (points < gameState.rankUpValues[3]) return 3
+        else if (points < gameState.rankUpValues[4]) return 4
+        else if (points < gameState.rankUpValues[5]) return 5
+        else if (points < gameState.rankUpValues[6]) return 6
+        else if (points < gameState.rankUpValues[7]) return 7
         else return 8
     }
 }
@@ -280,10 +256,20 @@ function updateRankings() {
     var overallPointsToNext = null
 
     var rankings = document.querySelectorAll("[data-rank]")
-    rankings.forEach((rank) => {
-        var value = rank.dataset.rankValue;
+    rankings.forEach((rank, i) => {
+        var index = 8 - i
+        var geniusValue = gameState.rankValues[8]
+
+        var value = gameState.rankValues[index];
+
+        var rankVal = rank.querySelector("[data-val]")
+        rankVal.textContent = value
+            
+            
         var number = rank.querySelector("[data-rank-number]")
         number.textContent = currentPoints
+
+        console.log("The Ranking was : " + value + " for " + index)
 
         var next;
         var nextRank = null
@@ -296,14 +282,14 @@ function updateRankings() {
 
             pointsToNext = rank.dataset.rankNextValue - currentPoints
 
-            var pointsToGenius = 132 - currentPoints
+            var pointsToGenius = geniusValue - currentPoints
 
             subtitle.textContent = pointsToNext + " points to next rank, " + pointsToGenius + " points to Genius"
         }
         else {
             next = 999
 
-            var extraPoints = currentPoints - 132
+            var extraPoints = currentPoints - geniusValue
             subtitle.textContent = "You have made it to Genius with " + extraPoints + " extra points!"
         }
 
@@ -387,21 +373,21 @@ function updateStats() {
         totalPoints += game.points
         totalPanagrams += game.panagrams
 
-        if (game.points < rankupValues[0]) ratings[0]++
-        else if (game.points < rankupValues[1]) ratings[1]++
-        else if (game.points < rankupValues[2]) ratings[2]++
-        else if (game.points < rankupValues[3]) ratings[3]++
-        else if (game.points < rankupValues[4]) ratings[4]++
-        else if (game.points < rankupValues[5]) ratings[5]++
-        else if (game.points < rankupValues[6]) ratings[6]++
-        else if (game.points < rankupValues[7]) ratings[7]++
+        if (game.points < gameState.rankUpValues[0]) ratings[0]++
+        else if (game.points < gameState.rankUpValues[1]) ratings[1]++
+        else if (game.points < gameState.rankUpValues[2]) ratings[2]++
+        else if (game.points < gameState.rankUpValues[3]) ratings[3]++
+        else if (game.points < gameState.rankUpValues[4]) ratings[4]++
+        else if (game.points < gameState.rankUpValues[5]) ratings[5]++
+        else if (game.points < gameState.rankUpValues[6]) ratings[6]++
+        else if (game.points < gameState.rankUpValues[7]) ratings[7]++
         else ratings[8]++
     })
 
     var mostFrequentRatingName = "Beginner"
     var mostFrequentRating = 0
 
-    for (let i = 0; i < rankingValues.length; i++) {
+    for (let i = 0; i < gameState.rankValues.length; i++) {
         if (ratings[i] > mostFrequentRating) {
             mostFrequentRating = ratings[i]
             mostFrequentRatingName = rankingNames[i]

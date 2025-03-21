@@ -36,6 +36,8 @@ let gameState = {
     yesterdaysLetters: "",
     yesterdaysAnswers: [],
     words: [],
+    rankValues: [],
+    rankUpValues: [],
     points: 0,
     panagrams: 0,
     currentRating: "Beginner",
@@ -64,7 +66,7 @@ async function fetchInfo() {
         allWords = Object.keys(json);
 
         // Create 7 letter list, and select word based on day offset
-        sevenLetterWords = allWords.filter(word => word.length === 7);
+        sevenLetterWords = allWords.filter(word => word.length === 7 && hasDuplicateLetters(word) == false);
 
         console.log("Total Words: " + allWords.length);
         console.log("7 Letter Words: " + sevenLetterWords.length);
@@ -92,6 +94,17 @@ async function fetchInfo() {
     } catch (error) {
         console.error('Error reading JSON file:', error);
     }
+}
+
+function hasDuplicateLetters(word) {
+    const letterSet = new Set();
+    for (const letter of word) {
+        if (letterSet.has(letter)) {
+            return true;
+        }
+        letterSet.add(letter);
+    }
+    return false;
 }
 
 function getGameNumberForDate(date) {
@@ -370,12 +383,16 @@ function fetchCumulativeData() {
 }
 
 function resetGameState() { 
+    var rankingValues = getRankValues()
+
     gameState = {
         gameNumber: targetGameNumber,
         currentLetters: currentLetters,
         yesterdaysLetters: yesterdaysLetters,
         yesterdaysAnswers: yesterdaysPuzzleList,
         words: [],
+        rankValues: rankingValues,
+        rankUpValues: getRankUpValues(rankingValues),
         points: 0,
         panagrams: 0,
         currentRating: "Beginner",
@@ -388,6 +405,34 @@ function resetGameState() {
 function resetCumulativeData() {
     cumulativeData = []
     storeCumulativeData()
+}
+
+function getRankValues() {
+    return [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40
+    ]
+}
+
+function getRankUpValues(values) {
+    return [
+        values[1],
+        values[2],
+        values[3],
+        values[4],
+        values[5],
+        values[6],
+        values[7],
+        values[8],
+        999
+    ]
 }
 
 function updateCumulativeData() {
