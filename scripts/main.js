@@ -44,9 +44,7 @@ let gameState = {
     completed: false,
     hasOpenedPuzzle: false
 }
-let cumulativeData = {
-    games: [],
-}
+let cumulativeData = []
 
 // Game: {
 //     words: [],
@@ -162,6 +160,17 @@ function shuffleString(str, seed) {
 
     // Join the array back into a string
     return arr.join('');
+}
+
+function calculateMaxPoints(words) {
+    var total = 0
+
+    words.forEach(word => {
+        var points = calculatePointsForGuess(word)
+        total += points
+    });
+
+    return total
 }
 
 function showAlert(message, duration = 1000) {
@@ -383,7 +392,7 @@ function fetchCumulativeData() {
 }
 
 function resetGameState() { 
-    var rankingValues = getRankValues()
+    var rankingValues = getRankValues(calculateMaxPoints(currentPuzzleList))
 
     gameState = {
         gameNumber: targetGameNumber,
@@ -407,18 +416,27 @@ function resetCumulativeData() {
     storeCumulativeData()
 }
 
-function getRankValues() {
+function getRankValues(currentMax) {
+    currentMax = Math.floor(currentMax * 0.75)
+
+    var remainder = currentMax % 35
+    var quotient = Math.floor(currentMax / 35)
+
     return [
         0,
-        5,
-        10,
-        15,
-        20,
-        25,
-        30,
-        35,
-        40
+        1 * quotient,
+        3 * quotient,
+        5 * quotient,
+        9 * quotient,
+        14 * quotient,
+        20 * quotient,
+        27 * quotient,
+        roundToNearestTen(35 * quotient + remainder) 
     ]
+}
+
+function roundToNearestTen(number) {
+    return Math.round(number / 10) * 10;
 }
 
 function getRankUpValues(values) {
@@ -438,6 +456,7 @@ function getRankUpValues(values) {
 function updateCumulativeData() {
     let todaysGame = {
         number: gameState.gameNumber,
+        maxPoints: calculateMaxPoints(currentPuzzleList),
         words: gameState.words,
         points: gameState.points,
         panagrams: gameState.panagrams,
@@ -559,8 +578,41 @@ function updateYesterdayMenu() {
         yesterdayPuzzleTitle.appendChild(newDiv)
     }
 
+    var yesterdayCumulative
+
+    if (hasYesterdaysCumulativeEntry()) {
+        yesterdayCumulative = getYesterdaysCumulativeEntry()
+    } else {
+        yesterdayCumulative = null
+    }
+
+    var yesterdayScore = (yesterdayCumulative != null) ? yesterdayCumulative.points : 0
+    var yesterdayWords = (yesterdayCumulative != null) ? yesterdayCumulative.words.length : 0
+
     var yesterdayDetails = document.querySelector("[data-yesterday-details]")
+    var maxScore = calculateMaxPoints(gameState.yesterdaysAnswers)
+    yesterdayDetails.textContent = yesterdayWords + " of " + gameState.yesterdaysAnswers.length + " words | " + yesterdayScore + " of " + maxScore + " points"
+
     var yesterdayWords = document.querySelector("[data-yesterday-words]")
+
+    var totalChars = 2 * gameState.yesterdaysAnswers.length
+    gameState.yesterdaysAnswers.forEach(word => {
+        totalChars += word.length
+    })
+
+    console.log("There are " + totalChars + " Chars")
+
+    if (totalChars > 820) {
+        yesterdayWords.classList.add("smallest")
+    } else if (totalChars > 728) {
+        yesterdayWords.classList.add("smaller")
+    } else if (totalChars > 668) {
+        yesterdayWords.classList.add("small")
+    } else if (totalChars > 500) {
+        yesterdayWords.classList.add("medium")
+    } else {
+        yesterdayWords.classList.add("large")
+    }
 
     var text = ""
     gameState.yesterdaysAnswers.forEach(word => { 
@@ -568,7 +620,34 @@ function updateYesterdayMenu() {
     })
 
     console.log("Yesterdays Words: " + text);
+    console.log("Yesterday had " + gameState.yesterdaysAnswers.length + " words")
     yesterdayWords.innerHTML = text;
+}
+
+function hasYesterdaysCumulativeEntry() {
+    var currentPuzzleNumber = gameState.gameNumber;
+    if (currentPuzzleNumber == 0) return false;
+
+    var yesterdayNumber = currentPuzzleNumber - 1;
+
+    cumulativeData.forEach(entry => {
+        if (entry.number == yesterdayNumber) return true;
+    });
+
+    return false;
+}
+
+function getYesterdaysCumulativeEntry() {
+    var currentPuzzleNumber = gameState.gameNumber;
+    if (currentPuzzleNumber == 0) return null;
+
+    var yesterdayNumber = currentPuzzleNumber - 1;
+
+    cumulativeData.forEach(entry => {
+        if (entry.number == yesterdayNumber) return entry;
+    });
+
+    return null;
 }
 
 function updateInfoPage() {

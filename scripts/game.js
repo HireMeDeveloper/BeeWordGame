@@ -156,7 +156,7 @@ function submitGuess() {
 
     gameState.points += points
     gameState.panagrams += hasPanagram ? 1 : 0
-    gameState.currentRating = getRatingName(gameState.points)
+    gameState.currentRating = getRatingName(gameState.points, calculateMaxPoints(currentPuzzleList))
     storeGameStateData();
 
     if (hasPanagram) showAlert("Panagram! +7 " + guess + ": +" + (points - 7));
@@ -170,30 +170,36 @@ function submitGuess() {
     updateWordsLists()
 }
 
-function getRatingName(points) { 
-    for (let i = 0; i < gameState.rankUpValues.length; i++) {
-        if (points < gameState.rankUpValues[0]) return rankingNames[0]
-        else if (points < gameState.rankUpValues[1]) return rankingNames[1]
-        else if (points < gameState.rankUpValues[2]) return rankingNames[2]
-        else if (points < gameState.rankUpValues[3]) return rankingNames[3]
-        else if (points < gameState.rankUpValues[4]) return rankingNames[4]
-        else if (points < gameState.rankUpValues[5]) return rankingNames[5]
-        else if (points < rgameState.rankUpValues[6]) return rankingNames[6]
-        else if (points < gameState.rankUpValues[7]) return rankingNames[7]
+function getRatingName(points, maxPoints) { 
+    var rankValues = getRankValues(maxPoints)
+    var rankUpValues = getRankUpValues(rankValues)
+
+    for (let i = 0; i < rankUpValues.length; i++) {
+        if (points < rankUpValues[0]) return rankingNames[0]
+        else if (points < rankUpValues[1]) return rankingNames[1]
+        else if (points < rankUpValues[2]) return rankingNames[2]
+        else if (points < rankUpValues[3]) return rankingNames[3]
+        else if (points < rankUpValues[4]) return rankingNames[4]
+        else if (points < rankUpValues[5]) return rankingNames[5]
+        else if (points < rankUpValues[6]) return rankingNames[6]
+        else if (points < rankUpValues[7]) return rankingNames[7]
         else return rankingNames[8]
     }
 }
 
-function getRatingIndex(points) {
-    for (let i = 0; i < gameState.rankUpValues.length; i++) {
-        if (points < gameState.rankUpValues[0]) return 0
-        else if (points < gameState.rankUpValues[1]) return 1
-        else if (points < gameState.rankUpValues[2]) return 2
-        else if (points < gameState.rankUpValues[3]) return 3
-        else if (points < gameState.rankUpValues[4]) return 4
-        else if (points < gameState.rankUpValues[5]) return 5
-        else if (points < gameState.rankUpValues[6]) return 6
-        else if (points < gameState.rankUpValues[7]) return 7
+function getRatingIndex(points, maxPoints) {
+    var rankValues = getRankValues(maxPoints)
+    var rankUpValues = getRankUpValues(rankValues)
+
+    for (let i = 0; i < rankUpValues.length; i++) {
+        if (points < rankUpValues[0]) return 0
+        else if (points < rankUpValues[1]) return 1
+        else if (points < rankUpValues[2]) return 2
+        else if (points < rankUpValues[3]) return 3
+        else if (points < rankUpValues[4]) return 4
+        else if (points < rankUpValues[5]) return 5
+        else if (points < rankUpValues[6]) return 6
+        else if (points < rankUpValues[7]) return 7
         else return 8
     }
 }
@@ -277,10 +283,10 @@ function updateRankings() {
 
         var subtitle = rank.querySelector("[data-subtitle]")
         if (rank.hasAttribute("data-rank-next-value")) { 
-            next = rank.dataset.rankNextValue
+            next = gameState.rankUpValues[index]
             nextRank = rank.dataset.rankNext
 
-            pointsToNext = rank.dataset.rankNextValue - currentPoints
+            pointsToNext = next - currentPoints
 
             var pointsToGenius = geniusValue - currentPoints
 
@@ -314,13 +320,9 @@ function updateRankings() {
 
     var header = document.querySelector("[data-rankings-header]")
     var divs = header.querySelectorAll("div")
-    divs.forEach((div) => {
-        var value = div.dataset.rankValue
-        var next = 999
-
-        if (div.hasAttribute("data-rank-next")) {
-            next = div.dataset.rankNext
-        }
+    divs.forEach((div, index) => {
+        var value = gameState.rankValues[index]
+        var next = gameState.rankUpValues[index]
 
         if (value > currentPoints) {
             div.classList.remove("yellow")
@@ -422,79 +424,32 @@ function updateStats() {
 
     var mockData = [
         {
-            number: 225,
-            words: gameState.words,
-            points: 0,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
+            number: 242,
+            maxpoints: 300,
+            panagrams: 1,
+            points: 25,
+            rating: "Genius",
+            words: ["bone", "moan", "note", "bonnet", "boat", "baboon", "boom", "moat", "bomb", "bottom"]
         },
         {
-            number: 224,
-            words: gameState.words,
-            points: 0,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
+            number: 241,
+            maxpoints: 300,
+            panagrams: 1,
+            points: 25,
+            rating: "Genius",
+            words: ["bone", "moan", "note", "bonnet", "boat", "baboon", "boom", "moat", "bomb", "bottom"]
         },
         {
-            number: 223,
-            words: gameState.words,
-            points: 20,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
-        },
-        {
-            number: 222,
-            words: gameState.words,
-            points: 120,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
-        },
-        {
-            number: 221,
-            words: gameState.words,
-            points: 60,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
-        },
-        {
-            number: 220,
-            words: gameState.words,
-            points: 200,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
-        },
-        {
-            number: 219,
-            words: gameState.words,
-            points: 100,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
-        },
-        {
-            number: 218,
-            words: gameState.words,
-            points: 100,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
-        },
-        {
-            number: 100,
-            words: gameState.words,
-            points: 200,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
-        },
-        {
-            number: 250,
-            words: gameState.words,
-            points: 200,
-            panagrams: gameState.panagrams,
-            rating: gameState.currentRating
+            number: 240,
+            maxpoints: 300,
+            panagrams: 1,
+            points: 25,
+            rating: "Genius",
+            words: ["bone", "moan", "note", "bonnet", "boat", "baboon", "boom", "moat", "bomb", "bottom"]
         }
-
     ]
 
-    cumulativeData.forEach(game => {
+    mockData.forEach(game => {
         var daysSinceSunday = game.number - lastSundayGameNumber;
         var dayOfTheWeek = getDayOfTheWeekFromGameNumber(game.number);
 
@@ -507,10 +462,10 @@ function updateStats() {
 
     for (let i = 0; i < 7; i++) {
         if (thisWeekData[i]) {
-            var ratingName = getRatingName(thisWeekData[i].points);
-            var ratingWidth = rankingBarWidths[getRatingIndex(thisWeekData[i].points)];
+            var ratingName = getRatingName(thisWeekData[i].points, thisWeekData[i].maxPoints);
+            var ratingWidth = rankingBarWidths[getRatingIndex(thisWeekData[i].points, thisWeekData[i].maxPoints)];
 
-            console.log("Points: " + thisWeekData[i].points + " Rating: " + ratingWidth + " Index: " + getRatingIndex(thisWeekData[i].points))
+            console.log("Points: " + thisWeekData[i].points + " Rating: " + ratingWidth + " Index: " + getRatingIndex(thisWeekData[i].points, thisWeekData[i].maxPoints))
 
             thisWeekBars[i].style.width = ratingWidth;
             thisWeekRanks[i].textContent = ratingName;
@@ -520,8 +475,8 @@ function updateStats() {
         }
 
         if (lastWeekData[i]) {
-            var ratingName = getRatingName(lastWeekData[i].points);
-            var ratingWidth = rankingBarWidths[getRatingIndex(lastWeekData[i].points)];
+            var ratingName = getRatingName(lastWeekData[i].points, thisWeekData[i].maxPoints);
+            var ratingWidth = rankingBarWidths[getRatingIndex(lastWeekData[i].points, thisWeekData[i].maxPoints)];
 
             lastWeekBars[i].style.width = ratingWidth;
             lastWeekRanks[i].textContent = ratingName;
