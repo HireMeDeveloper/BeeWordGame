@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/text.css">
     <script src="scripts/game.js" defer></script>
     <script src="scripts/main.js" defer></script>
+    <script src="scripts/testing.js" defer></script>
 </head>
 <body class="off-white">
     <div id="game" class="page">
@@ -263,7 +264,7 @@
                     <div class="centered underline stats"></div>
                 </div>
                 <div class="centered">
-                    <button class="button share center gap" style="--amount: 2em" data-play-button onclick="showPage('game')">
+                    <button class="button share center gap" style="--amount: 2em" data-play-button onclick="pressShare()">
                         Share
                     </button>
                 </div>
@@ -333,7 +334,7 @@
                     <div class="centered underline stats"></div>
                 </div>
                 <div class="centered">
-                    <button class="button share center gap" style="--amount: 2em" data-play-button onclick="showPage('game')">
+                    <button class="button share center gap" style="--amount: 2em" data-play-button onclick="pressShare()">
                         Share
                     </button>
                 </div>
@@ -359,7 +360,7 @@
                         What are&nbsp;<a class="rankings-link" onclick="showPage('rankings')"> rankings based on</a>?
                     </div>
                     <div class="centered">
-                        <button class="button share center gap" style="--amount: 6em" data-play-button onclick="showPage('game')">
+                        <button class="button share center gap" style="--amount: 6em" data-play-button onclick="pressShare()">
                             Share
                         </button>
                     </div>

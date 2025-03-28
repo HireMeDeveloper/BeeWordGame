@@ -301,6 +301,9 @@ button.hint.changed {
     display: flex;
     align-items: start;
     text-align: left;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    justify-content: left;
 }
 
 .yesterday-words.large {
@@ -338,4 +341,8 @@ button.hint.changed {
     font-size: 0.8em;
     font-weight: normal;
     text-align: left;
+}
+
+.yesterday-word-highlighted {
+    background-color: #E6c655;
 }

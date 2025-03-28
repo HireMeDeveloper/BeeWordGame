@@ -304,7 +304,7 @@ function resetWordsDropdowns() {
             dropdown.classList.remove('enabled');
         }
 
-        console.log("Resetting dropdown: " + dropdown.hasAttribute("data-default").toString());
+        //console.log("Resetting dropdown: " + dropdown.hasAttribute("data-default").toString());
     });
 }
 
@@ -317,7 +317,7 @@ function resetRankingsDropdowns() {
             dropdown.classList.remove('enabled');
         }
 
-        console.log("Resetting dropdown: " + dropdown.hasAttribute("data-default").toString());
+        //console.log("Resetting dropdown: " + dropdown.hasAttribute("data-default").toString());
     });
 }
 
@@ -505,12 +505,12 @@ function getDayOfTheWeekFromGameNumber(gameNumber) {
     var day = targetDate.getDay();
 
     // Returns the day of the week (0-6) starting with sunday
-    if (day < 6) return day + 1;
-    else return 0;
+    //console.log("Returning day: " + day)
+    return day;
 }
 
 function generateWelcomeMessage() {
-    console.log("generating message")
+    //console.log("generating message")
 
     const welcomeHeader = document.querySelector("[data-welcome-header]")
     const welcomeMessage = document.querySelector("[data-welcome-message]")
@@ -600,7 +600,7 @@ function updateYesterdayMenu() {
         totalChars += word.length
     })
 
-    console.log("There are " + totalChars + " Chars")
+    //console.log("There are " + totalChars + " Chars")
 
     if (totalChars > 820) {
         yesterdayWords.classList.add("smallest")
@@ -614,14 +614,24 @@ function updateYesterdayMenu() {
         yesterdayWords.classList.add("large")
     }
 
-    var text = ""
-    gameState.yesterdaysAnswers.forEach(word => { 
-        text += capitalizeFirstLetter(word) + " &nbsp&nbsp "
+    var parent = yesterdayWords
+
+    gameState.yesterdaysAnswers.forEach(word => {
+        var newDiv = document.createElement('div');
+        newDiv.textContent = capitalizeFirstLetter(word)
+
+        var points = calculatePointsForGuess(word, yesterdaysLetters)
+        //console.log("Points was: " + points + " Length was: " + word.length)
+        if (points > word.length) newDiv.classList.add("yesterday-word-highlighted")
+        parent.append(newDiv)
     })
 
-    console.log("Yesterdays Words: " + text);
-    console.log("Yesterday had " + gameState.yesterdaysAnswers.length + " words")
-    yesterdayWords.innerHTML = text;
+    //var text = ""
+    //gameState.yesterdaysAnswers.forEach(word => { 
+    //    text += capitalizeFirstLetter(word) + " &nbsp&nbsp "
+    //})
+
+    //yesterdayWords.innerHTML = text;
 }
 
 function hasYesterdaysCumulativeEntry() {
@@ -733,30 +743,16 @@ function processStats(cumulativeState) {
 }
 
 function pressShare() {
-    // if (gameState.isComplete == false) {
-    //     showShareAlert("Complete todays puzzle to share!")
-    //     return;
-    // }
+    let textToCopy = "Try Word Wheel! \nwww.independent.ie/wordwheel \nMy rank today: " + gameState.currentRating
 
-    // let lastEntry = cumulativeData[cumulativeData.length - 1]
-    // let grade = getGrade(lastEntry.games, lastEntry.wins, lastEntry.countedHints)
-
-    // let textToCopy = "Try Conundrum! \nwww.independent.ie/conundrum \n Puzzle: " + targetGame.number + " " + "\n" + " My score today: " + grade + "% \n" 
-
-    // //"🟩🟥"
-
-    // textToCopy += (gameState.games[0].isWin) ? (gameState.games[0].usedHint) ? "\n🟨🟨🟨🟨🟨🟨🟨" : "\n🟩🟩🟩🟩🟩🟩🟩" : "\n🟥🟥🟥🟥🟥🟥🟥"
-    // textToCopy += (gameState.games[1].isWin) ? (gameState.games[1].usedHint) ? "\n🟨🟨🟨🟨🟨🟨🟨🟨" : "\n🟩🟩🟩🟩🟩🟩🟩🟩" : "\n🟥🟥🟥🟥🟥🟥🟥🟥"
-    // textToCopy += (gameState.games[2].isWin) ? (gameState.games[2].usedHint) ? "\n🟨🟨🟨🟨🟨🟨🟨🟨🟨" : "\n🟩🟩🟩🟩🟩🟩🟩🟩🟩" : "\n🟥🟥🟥🟥🟥🟥🟥🟥🟥"
-
-    // if (navigator.share && detectTouchscreen() && ALLOW_MOBILE_SHARE) {
-    //     navigator.share({
-    //         text: textToCopy
-    //     })
-    // } else {
-    //     navigator.clipboard.writeText(textToCopy)
-    //     showShareAlert("Link Copied! Share with Your Friends!")
-    // }
+    if (navigator.share && detectTouchscreen() && ALLOW_MOBILE_SHARE) {
+        navigator.share({
+            text: textToCopy
+        })
+    } else {
+        navigator.clipboard.writeText(textToCopy)
+        showShareAlert("Link Copied! Share with Your Friends!")
+    }
 
     fireEvent("pressedShare");
 }
