@@ -600,15 +600,15 @@ function updateYesterdayMenu() {
         totalChars += word.length
     })
 
-    //console.log("There are " + totalChars + " Chars")
+    console.log("There are " + totalChars + " Chars")
 
-    if (totalChars > 820) {
+    if (totalChars > 720) {
         yesterdayWords.classList.add("smallest")
-    } else if (totalChars > 728) {
+    } else if (totalChars > 650) {
         yesterdayWords.classList.add("smaller")
-    } else if (totalChars > 668) {
+    } else if (totalChars > 520) {
         yesterdayWords.classList.add("small")
-    } else if (totalChars > 500) {
+    } else if (totalChars > 350) {
         yesterdayWords.classList.add("medium")
     } else {
         yesterdayWords.classList.add("large")

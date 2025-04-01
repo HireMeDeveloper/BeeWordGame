@@ -310,30 +310,35 @@ button.hint.changed {
     font-size: 1em;
     width: 16em;
     height: 18em;
+    line-height: 1.8em;
 }
 
 .yesterday-words.medium {
     font-size: .8em;
     width: 20em;
     height: 22.5em;
+    line-height: 1.3em;
 }
 
 .yesterday-words.small {
     font-size: .6em;
     width: 26.72em;
     height: 30.06em;
+    line-height: 1.1em;
 }
 
 .yesterday-words.smaller {
     font-size: .55em;
     width: 29.12em;
     height: 32.76em;
+    line-height: .9em;
 }
 
 .yesterday-words.smallest {
     font-size: .5em;
     width: 32em;
     height: 36em;
+    line-height: .8em;
 }
 
 .yesterday-footer {
