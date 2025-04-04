@@ -80,8 +80,8 @@ function handleKeyPress(e) {
         return
     }
 
-    if (isValidLetter(e.key)) {
-        pressKey(e.key)
+    if (isValidLetter(e.key.toLowerCase())) {
+        pressKey(e.key.toLowerCase())
         return
     } 
 }
@@ -159,8 +159,9 @@ function submitGuess() {
     gameState.currentRating = getRatingName(gameState.points, calculateMaxPoints(currentPuzzleList))
     storeGameStateData();
 
-    if (hasPanagram) showAlert("Panagram! +7 " + guess + ": +" + (points - 7));
-    else showAlert(guess + ": +" + points);
+    if (hasPanagram) showAlert("Panagram! +7<br>" + guess + ": +" + (points - 7));
+    else if (guess.length == 4) showAlert(guess + ": +1");
+    else showAlert(guess.length + " Letters!<br>" + guess + ": +" + points);
 
     gameState.words.push(guess.toLowerCase())
     storeGameStateData()
@@ -232,13 +233,14 @@ function updateWordsLists() {
 }
 
 function calculatePointsForGuess(guess, testLetters = validLetters) {
-    var letters = guess.split('');
+    var letters = guess.toLowerCase().split('');
     let allLettersFound = true; // Assume all letters are found at first
 
     if (letters.length >= 7) {
         // Check each letter from testLetters
         for (let letter of testLetters.split('')) {
-            if (!letters.includes(letter)) {
+            if (!letters.includes(letter.toLowerCase())) {
+                console.log("Letter not found: " + letter + " in " + guess); // Debugging output
                 allLettersFound = false; // Mark that not all letters are found
                 break; // Exit early because we found a letter not in the guess
             }
@@ -249,8 +251,10 @@ function calculatePointsForGuess(guess, testLetters = validLetters) {
         } else {
             return letters.length; // Just the length of the guess if not all letters are found
         }
+    } else if (letters.length == 4) {
+        return 1; // If guess is exactly 4 letters, return 1 point
     } else {
-        return letters.length; // If guess is less than 7 letters, return length
+        return letters.length; // If guess is less than 7 letters and more than 4, return length
     }
 }
 

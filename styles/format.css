@@ -104,18 +104,20 @@ html {
 }
 
 .text-box-info {
-    width: 31.25em;
+    width: 30em;
     display: flex;
     justify-content: left;
     text-align: left;
-    font-size: .65em;
+    font-size: .6em;
     line-height: 1.4em;
+    margin-right: 1.5em;
 }
 
 .text-box-info.heading {
-    width: 29em;
+    width: 28em;
     font-weight: bolder;
-    font-size: 0.7em;
+    font-size: 0.65em;
+    margin-right: 1em;
 }
 
 .text-box-stats {
@@ -132,10 +134,12 @@ html {
 }
 
 .text-box-welcome {
-    width: 18em;
-    display: flex;
-    justify-content: center;
-    font-size: 1em;
+    width: 12em;
+    justify-content: left;
+    text-align: left;
+    align-items: left;
+    line-height: 1.5em;
+    font-size: 1.1em;
     margin-bottom: -2.35em;
 }
 

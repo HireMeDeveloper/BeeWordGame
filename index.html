@@ -120,7 +120,31 @@
         <div class="gap" style="--amount:5em"></div>
     </div>
     <div id="info" class="page active">
-        <div class="text-info-title gap" style="--amount: 4em">
+        <div>
+            <div class="alert-container gap" style="--amount: 5em" data-alert-container></div>
+            <div class="header">
+                <div>
+                    <img src="resources/word-wheel-horizontal.svg" class="logo-horizontal-icon">
+                </div>
+                <div>
+                    <a onclick="showPage('yesterday')">
+                        <img src="resources/yesterday-icon.svg" class="icon">
+                    </a>
+                </div>
+                <div>
+                    <a onclick="showPage('info')">
+                        <img src="resources/info-icon.svg" class="icon">
+                    </a>
+                </div>
+                <div>
+                    <a onclick="showPage('stats')">
+                        <img src="resources/stats-icon.svg" class="icon">
+                    </a>
+                </div>
+            </div>
+            <div class="underline" style="background-color: black;"></div>
+        </div>
+        <div class="text-info-title gap" style="--amount: 3em">
             How To Play
         </div>
         <div class="centered">
@@ -157,10 +181,10 @@
         </div>
         <div class="centered">
             <div class="text-box-info gap" style="--amount: 1.1em">
-                Have feedback? &nbsp;<a href="mailto:customerhelp@independent?subject=Uimhir%20Puzzle%20Feedback.">Email us</a>.
+                Have feedback? &nbsp;<a href="mailto:customerhelp@independent?subject=WordWheel%20Puzzle%20Feedback.">Email us</a>.
             </div>
         </div>
-        <div class="centered gap" style="--amount: 4em">
+        <div class="centered gap" style="--amount: 1.2em">
             <button class="button play" data-play-button onclick="showPage('game')">
                 Play
             </button>
@@ -375,10 +399,14 @@
         <div class="text-welcome-title gap centered" style="--amount: 3em" data-welcome-header>
             None
         </div>
-        <div class="text-box-welcome long gap centered" style="--amount: 0.5em" data-welcome-message>
-            None
+        <div class="centered">
+            <div class="text-box-welcome long gap" style="--amount: 0.5em" data-welcome-message>
+                So far today, you've achieved the <br>rank of Beginner by finding 999 words<br> worth 3 points.
+                <br><br>
+                How far can you get by midnight?
+            </div>
         </div>
-        <div class="centered gap" style="--amount: 14em">
+        <div class="centered gap" style="--amount: 7em">
             <button class="button welcome" onclick="showPage('game')" data-welcome-button>
                 None
             </button>
@@ -525,7 +553,7 @@
                 </div>
             </div>
             <div class="rankings-dropdown footer gap" style="--amount: 80em">
-                Check the <a href="mailto:customerhelp@independent?subject=Uimhir%20Puzzle%20Feedback.">Spelling Bee Forum</a>
+                Check the <a href="mailto:customerhelp@independent?subject=WordWheel%20Puzzle%20Feedback.">Spelling Bee Forum</a>
                 for help from the #HiveMind on your beeline to Genius.
             </div>
             <div class="rankings-dropdown background gap" style="--amount: 44em"></div>

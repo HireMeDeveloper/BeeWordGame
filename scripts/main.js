@@ -114,6 +114,7 @@ function getGameNumberForDate(date) {
 
 function getLettersFromGameNumber(gameNumber) {
     let selectedWord = sevenLetterWords[gameNumber]
+    console.log("The current word was: " + selectedWord)
 
     let shuffledWord = shuffleString(selectedWord, gameNumber)
     console.log("The current letters are: " + shuffledWord)
@@ -179,7 +180,7 @@ function showAlert(message, duration = 1000) {
     }
 
     const alert = document.createElement("div")
-    alert.textContent = message
+    alert.innerHTML = message
     alert.classList.add("alert")
     
     alertContainer.prepend(alert)
@@ -520,7 +521,7 @@ function generateWelcomeMessage() {
 
     if (gameState.isComplete != true) {
         welcomeHeader.textContent = "Welcome Back"
-        welcomeMessage.innerHTML = "Click below to continue todays puzzle."
+        welcomeMessage.innerHTML = "So far today, you've achieved the <br>rank of <b>" + gameState.currentRating + "</b> by finding <b>" + gameState.words.length +"</b> words<br> worth <b>" + gameState.points + "</b> points.<br><br>How far can you get by midnight?";
         welcomeMessage.classList.add('long')
         welcomeButton.textContent = "Continue"
         welcomeButton.onclick = () => {
@@ -625,13 +626,6 @@ function updateYesterdayMenu() {
         if (points > word.length) newDiv.classList.add("yesterday-word-highlighted")
         parent.append(newDiv)
     })
-
-    //var text = ""
-    //gameState.yesterdaysAnswers.forEach(word => { 
-    //    text += capitalizeFirstLetter(word) + " &nbsp&nbsp "
-    //})
-
-    //yesterdayWords.innerHTML = text;
 }
 
 function hasYesterdaysCumulativeEntry() {
@@ -654,7 +648,9 @@ function getYesterdaysCumulativeEntry() {
     var yesterdayNumber = currentPuzzleNumber - 1;
 
     cumulativeData.forEach(entry => {
-        if (entry.number == yesterdayNumber) return entry;
+        if (entry.number == yesterdayNumber) {
+            return entry;
+        }
     });
 
     return null;
