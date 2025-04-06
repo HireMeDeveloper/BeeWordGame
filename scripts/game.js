@@ -40,6 +40,7 @@ function LoadLettersIntoPuzzle() {
         if (key.hasAttribute("data-center") == false) {
             var text = key.querySelector(".hex-text")
             text.textContent = validLetters[index].toUpperCase()
+            key.addEventListener("click", handleMouseClick)
             index++
         }
     })
