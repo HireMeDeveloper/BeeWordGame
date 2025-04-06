@@ -37,10 +37,10 @@ function LoadLettersIntoPuzzle() {
 
     var keys = document.querySelectorAll("[data-key]")
     keys.forEach(key => {
+        key.addEventListener("click", () => { })
         if (key.hasAttribute("data-center") == false) {
             var text = key.querySelector(".hex-text")
             text.textContent = validLetters[index].toUpperCase()
-            key.addEventListener("click", () => { })
             index++
         }
     })
