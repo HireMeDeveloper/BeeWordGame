@@ -104,20 +104,18 @@ html {
 }
 
 .text-box-info {
-    width: 30em;
+    width: 29em;
     display: flex;
     justify-content: left;
     text-align: left;
-    font-size: .6em;
+    font-size: .65em;
     line-height: 1.4em;
-    margin-right: 1.5em;
 }
 
 .text-box-info.heading {
-    width: 28em;
+    width: 25em;
     font-weight: bolder;
-    font-size: 0.65em;
-    margin-right: 1em;
+    font-size: 0.75em;
 }
 
 .text-box-stats {
@@ -293,7 +291,7 @@ html {
 .hexagon {
     grid-column: span 2;
     grid-row: span 2;
-    height: 4em;
+    height: 5em;
     /* adjust to control the size  */
     aspect-ratio: cos(30deg);
     clip-path: polygon(-50% 50%, 50% 100%, 150% 50%, 50% 0);
@@ -312,9 +310,9 @@ html {
 
 .hexagon-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1.85em);
+    grid-template-columns: repeat(6, 2.3em);
     /* 3 columns */
-    grid-template-rows: repeat(6, 1.6em);
+    grid-template-rows: repeat(6, 2em);
     /* 3 rows */
     gap: 0em;
     /* adjust the gap between hexagons for padding */
@@ -324,7 +322,9 @@ html {
 }
 
 .hex-text{
+    font-weight: bold;
     padding-top: .4em;
+    font-size: 1.25em;
     pointer-events: none;
 }
 
@@ -626,16 +626,24 @@ html {
     font-size: 0.6em;
 }
 
+.scoring-banner{
+    position: absolute;
+    height: 2.5em;
+    width: 18em;
+    z-index: 1;
+    cursor: pointer;
+}
+
 .rankings-box-dot-grid {
     position: absolute;
     display: grid;
-    grid-template-columns: repeat(9, 1em);
+    grid-template-columns: repeat(9, 1.4em);
     gap: 0.1em;
     justify-items: center;
     align-items: center;
     padding-top: 1.5em;
     padding-left: 1.2em;
-    margin-left: 6em;
+    margin-left: 3em;
 }
 
 .rankings-dot{
@@ -651,9 +659,9 @@ html {
 
 .rankings-dot.active {
     background-color: #e6c655;
-    width: 2em;
-    height: 2em;
-    border-radius: 1em;
+    width: 2.3em;
+    height: 2.3em;
+    border-radius: 1.15em;
     display: flex;
     justify-content: center;
     padding-top: .2em;

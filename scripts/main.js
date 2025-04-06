@@ -253,7 +253,7 @@ function showPage(pageId, oldPage = null) {
         updateBodyColor(false)
         generateWelcomeMessage()
     } else if (pageId === "info") {
-        updateBodyColor(false)
+        updateBodyColor(true)
     } else if (pageId === "yesterday") { 
         updateBodyColor(true)
     } else if (pageId === "rankings") {

@@ -351,12 +351,12 @@ function updateRankings() {
         }
     })
 
-    var info = document.querySelector("[data-rankings-header-info]")
-    if (overallPointsToNext != null) {
-        info.textContent = overallPointsToNext + " to " + overallNextRank
-    } else {
-        info.textContent = "Great job!"
-    }
+    //var info = document.querySelector("[data-rankings-header-info]")
+    //if (overallPointsToNext != null) {
+    //    info.textContent = overallPointsToNext + " to " + overallNextRank
+    //} else {
+    //    info.textContent = "Great job!"
+    //}
 
     var rank = document.querySelector("[data-rankings-header-rank]")
     rank.textContent = currentRank
