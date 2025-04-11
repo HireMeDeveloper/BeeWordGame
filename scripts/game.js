@@ -128,26 +128,30 @@ function submitGuess() {
     var input = document.querySelector("[data-input]")
     var guess = input.textContent;
 
+    if (allWords.includes(guess.toLowerCase()) == false) {
+        showAlert("Not a valid word!");
+        console.log("Not a valid word: " + guess)
+        input.textContent = ""
+        return
+    }
+
     if (guess.toLowerCase().includes(validLetters[0]) == false) {
         showAlert("Not using the center letter!");
+        console.log("Not using the center letter: " + guess)
         input.textContent = ""
         return
     }
 
     if (guess.length < 4) {
         showAlert("Word too short!");
-        input.textContent = ""
-        return
-    }
-
-    if (allWords.includes(guess.toLowerCase()) == false) {
-        showAlert("Not a valid word!");
+        console.log("Word too short: " + guess)
         input.textContent = ""
         return
     }
 
     if (gameState.words.includes(guess.toLowerCase())) {
         showAlert("Word already used!");
+        console.log("Word already used: " + guess)
         input.textContent = ""
         return
     }

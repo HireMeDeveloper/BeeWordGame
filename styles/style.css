@@ -296,10 +296,11 @@ button.hint.changed {
     font-size: 1em;
     width: 16em;
     height: 18em;
-    line-height: 1.8em;
+    line-height: 2em;
     font-weight: normal;
     display: flex;
     align-items: start;
+    align-content: start;
     text-align: left;
     flex-wrap: wrap;
     gap: 0.5em;
@@ -310,21 +311,21 @@ button.hint.changed {
     font-size: 1em;
     width: 16em;
     height: 18em;
-    line-height: 1.8em;
+    line-height: 1.4em;
 }
 
 .yesterday-words.medium {
     font-size: .8em;
     width: 20em;
     height: 22.5em;
-    line-height: 1.3em;
+    line-height: 1em;
 }
 
 .yesterday-words.small {
     font-size: .6em;
     width: 26.72em;
     height: 30.06em;
-    line-height: 1.1em;
+    line-height: 1em;
 }
 
 .yesterday-words.smaller {
