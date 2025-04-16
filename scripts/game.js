@@ -178,6 +178,7 @@ function submitGuess() {
 
 function getRatingName(points, maxPoints) { 
     var rankValues = getRankValues(maxPoints)
+
     var rankUpValues = getRankUpValues(rankValues)
 
     for (let i = 0; i < rankUpValues.length; i++) {
@@ -188,7 +189,11 @@ function getRatingName(points, maxPoints) {
         else if (points < rankUpValues[4]) return rankingNames[4]
         else if (points < rankUpValues[5]) return rankingNames[5]
         else if (points < rankUpValues[6]) return rankingNames[6]
-        else if (points < rankUpValues[7]) return rankingNames[7]
+        else if (points < rankUpValues[7]) {
+            console.log("Rankupvalues: " + rankUpValues.toString())
+            console.log("rankValues: " + rankValues.toString());
+            return rankingNames[7]
+        }
         else return rankingNames[8]
     }
 }
@@ -245,7 +250,7 @@ function calculatePointsForGuess(guess, testLetters = validLetters) {
         // Check each letter from testLetters
         for (let letter of testLetters.split('')) {
             if (!letters.includes(letter.toLowerCase())) {
-                console.log("Letter not found: " + letter + " in " + guess); // Debugging output
+                //console.log("Letter not found: " + letter + " in " + guess); // Debugging output
                 allLettersFound = false; // Mark that not all letters are found
                 break; // Exit early because we found a letter not in the guess
             }
@@ -436,54 +441,12 @@ function updateStats() {
     var thisWeekData = new Array(7).fill(null);
     var lastWeekData = new Array(7).fill(null);
 
-    var mockData = [
-        {
-            number: 246,
-            maxPoints: 300,
-            panagrams: 1,
-            points: 300,
-            rating: "Genius",
-            words: ["bone", "moan", "note", "bonnet", "boat", "baboon", "boom", "moat", "bomb", "bottom"]
-        },
-        {
-            number: 242,
-            maxPoints: 300,
-            panagrams: 1,
-            points: 25,
-            rating: "Genius",
-            words: ["bone", "moan", "note", "bonnet", "boat", "baboon", "boom", "moat", "bomb", "bottom"]
-        },
-        {
-            number: 241,
-            maxPoints: 300,
-            panagrams: 1,
-            points: 25,
-            rating: "Genius",
-            words: ["bone", "moan", "note", "bonnet", "boat", "baboon", "boom", "moat", "bomb", "bottom"]
-        },
-        {
-            number: 240,
-            maxPoints: 300,
-            panagrams: 1,
-            points: 25,
-            rating: "Genius",
-            words: ["bone", "moan", "note", "bonnet", "boat", "baboon", "boom", "moat", "bomb", "bottom"]
-        },
-        {
-            number: 238,
-            maxPoints: 300,
-            panagrams: 1,
-            points: 200,
-            rating: "Genius",
-            words: ["bone", "moan", "note", "bonnet", "boat", "baboon", "boom", "moat", "bomb", "bottom"]
-        }
-    ]
-
     cumulativeData.forEach(game => {
         var daysSinceSunday = game.number - lastSundayGameNumber;
         var dayOfTheWeek = getDayOfTheWeekFromGameNumber(game.number);
 
         //console.log("Days since sunday: " + daysSinceSunday + " Day of week: " + dayOfTheWeek)
+        console.log("Game number: " + game.number + " max: " + game.maxPoints)
 
         if (daysSinceSunday >= 0 && daysSinceSunday < 7) {
             thisWeekData[dayOfTheWeek] = game;

@@ -39,6 +39,7 @@ let gameState = {
     rankValues: [],
     rankUpValues: [],
     points: 0,
+    maxPoints: 0,
     panagrams: 0,
     currentRating: "Beginner",
     completed: false,
@@ -130,11 +131,13 @@ function getPuzzleListFromShuffledWord(shuffledWord) {
         return [...wordLetters].every(letter => selectedWordLetters.has(letter));
     });
 
-    console.log("Valid Words for Selected Word: " + validWordsForSelectedWord.length);
-    console.log("The words are: " + validWordsForSelectedWord.toString());
-
     const selectedLetter = shuffledWord[0]; // Choosing the first letter as an example
-    return validWordsForSelectedWord.filter(word => word.includes(selectedLetter));
+    var filtered = validWordsForSelectedWord.filter(word => word.includes(selectedLetter));
+
+    console.log("Valid Words for Selected Word: " + filtered.length);
+    console.log("The words are: " + filtered.toString());
+
+    return filtered;
 }
 
 function shuffleString(str, seed) {
@@ -393,7 +396,8 @@ function fetchCumulativeData() {
 }
 
 function resetGameState() { 
-    var rankingValues = getRankValues(calculateMaxPoints(currentPuzzleList))
+    var max = calculateMaxPoints(currentPuzzleList)
+    var rankingValues = getRankValues(max)
 
     gameState = {
         gameNumber: targetGameNumber,
@@ -404,6 +408,7 @@ function resetGameState() {
         rankValues: rankingValues,
         rankUpValues: getRankUpValues(rankingValues),
         points: 0,
+        maxPoints: max,
         panagrams: 0,
         currentRating: "Beginner",
         isComplete: false,
@@ -418,12 +423,12 @@ function resetCumulativeData() {
 }
 
 function getRankValues(currentMax) {
-    currentMax = Math.floor(currentMax * 0.75)
+    var newCurrentMax = Math.floor(currentMax * 0.75)
 
-    var remainder = currentMax % 35
-    var quotient = Math.floor(currentMax / 35)
+    var remainder = newCurrentMax % 35
+    var quotient = Math.floor(newCurrentMax / 35)
 
-    return [
+    var values = [
         0,
         1 * quotient,
         3 * quotient,
@@ -434,6 +439,11 @@ function getRankValues(currentMax) {
         27 * quotient,
         roundToNearestTen(35 * quotient + remainder) 
     ]
+
+    console.log("Values: " + values.toString() + " From max: " + currentMax + " GamestateMax: " + gameState.maxPoints)
+    //console.log("Current puzzle list: " + currentPuzzleList.toString())
+
+    return values;
 }
 
 function roundToNearestTen(number) {
@@ -455,41 +465,9 @@ function getRankUpValues(values) {
 }
 
 function updateCumulativeData() {
-
-    let dummy = [
-        {
-            number: 259,
-            maxPoints: 500,
-            words: ["word", "wheel"],
-            points: 100,
-            panagrams: 0,
-            rating: "Beginner"
-        },
-        {
-            number: 258,
-            maxPoints: 500,
-            words: ["word", "wheel"],
-            points: 100,
-            panagrams: 0,
-            rating: "Beginner"
-        },
-        {
-            number: 257,
-            maxPoints: 500,
-            words: ["word", "wheel"],
-            points: 100,
-            panagrams: 0,
-            rating: "Beginner"
-        }
-    ]
-
-    //cumulativeData = dummy;
-    //storeCumulativeData();
-    //return;
-
     let todaysGame = {
         number: gameState.gameNumber,
-        maxPoints: calculateMaxPoints(currentPuzzleList),
+        maxPoints: gameState.maxPoints,
         words: gameState.words,
         points: gameState.points,
         panagrams: gameState.panagrams,
