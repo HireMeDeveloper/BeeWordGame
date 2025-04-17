@@ -416,7 +416,7 @@ html {
     position: absolute;
     font-size: 1em;
     width: .1em;
-    height: 11.5em;
+    height: 13.2em;
     background-color: var(--light-grey);
     margin-right: 16.02em;
     z-index: 3;
@@ -473,17 +473,17 @@ html {
     align-items: left;
     text-align: left;
     font-weight: bold;
-    font-size: 1em;
-    width: 17.6em;
-    height: 3em;
+    font-size: 1.5em;
+    width: 11.8em;
+    height: 2em;
 }
 
 .rankings-dropdown.subheading{
     justify-content: left;
     align-items: left;
     text-align: left;
-    font-size: 0.5em;
-    width: 35em;
+    font-size: 0.7em;
+    width: 25.25em;
 }
 
 .rankings-dropdown.footer{
@@ -499,22 +499,23 @@ html {
     justify-content: left;
     align-items: left;
     text-align: left;
-    font-size: 0.4em;
-    width: 41em;
-    padding-left: 2em;
+    font-size: 0.6em;
+    width: 30em;
+    padding-left: 3.2em;
 }
 
 .rankings-dropdown.right-label{
     justify-content: right;
     align-items: right;
     text-align: right;
-    font-size: 0.4em;
-    width: 41em;
+    padding-right: 1.4em;
+    font-size: 0.6em;
+    width: 30em;
 }
 
 .rank-parent {
     width: 18em;
-    height: 1.4em;
+    height: 1.6em;
     border-radius: 1em;
     display: flex;
     align-items: center;
@@ -524,7 +525,7 @@ html {
 
 .rank-parent.highlight{
     background-color: var(--accent-color);
-    height: 1.6em;
+    height: 1.8em;
 }
 
 .rank-grid {
@@ -539,12 +540,12 @@ html {
 
 .rank {
     position: absolute;
-    width: 33em;
+    width: 24em;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 0.5em;
+    font-size: 0.7em;
     z-index: 3;
 }
 
@@ -552,7 +553,7 @@ html {
     visibility: hidden;
     justify-content: center;
     text-align: center;
-    margin-right: 32em;
+    margin-right: 22.8em;
 }
 
 .rank.number.highlight {
@@ -561,12 +562,12 @@ html {
 }
 
 .rank.dot {
-    justify-content: left;
     width: .6em;
     height: .6em;
     background: var(--light-grey);
     border-radius: .3em;
-    margin-right: 32em;
+    margin-right: 22.8em;
+    margin-bottom: .2em;
     z-index: 2;
 }
 
@@ -582,16 +583,16 @@ html {
 
 .rank.title.highlight {
     font-weight: bold;
-    padding-bottom: .9em;
+    padding-bottom: .7em;
 }
 
 .rank.subtitle {
     visibility: hidden;
     justify-content: left;
     text-align: left;
-    width: 37em;
-    margin-top: 2em;
-    font-size: 0.4em;
+    width: 29em;
+    margin-top: 1.7em;
+    font-size: 0.5em;
 }
 
 .rank.subtitle.highlight {
@@ -599,13 +600,14 @@ html {
 }
 
 .rank.score {
+    margin-right: 0.75em;
     justify-content: right;
     text-align: right;
 }
 
 .rank.line {
     background: var(--light-grey);
-    width: 28.5em;
+    width: 19.5em;
     height: .1em;
     clip-path: inset(0 0 0 var(--padding));
     z-index: 2;

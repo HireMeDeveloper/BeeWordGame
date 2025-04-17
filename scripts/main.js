@@ -251,9 +251,9 @@ function showPage(pageId, oldPage = null) {
         loadGame()
         updateBodyColor(true)
     } else if (pageId === "stats") {
-        updateBodyColor(false)
+        updateBodyColor(true)
     } else if (pageId === "welcome") {
-        updateBodyColor(false)
+        updateBodyColor(true)
         generateWelcomeMessage()
     } else if (pageId === "info") {
         updateBodyColor(true)
